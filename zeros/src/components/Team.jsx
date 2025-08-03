@@ -62,7 +62,7 @@ export default function Team() {
                 />
                 <TeamMember
                     name="Lucas Grasso"
-                    role="Project Manager"
+                    role="Backend Developer"
                     align="end"
                     links={[
                         { label: "→ Portfolio", url: "#" },
