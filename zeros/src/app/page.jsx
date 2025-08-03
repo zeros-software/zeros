@@ -9,63 +9,59 @@ export default function Home() {
   const breakpointRef = useRef(null);
   const lastDivRef = useRef(null);
   const teamRef = useRef(null);
-  const [scrolledPast, setScrolledPast] = useState(false);
+  const [currentSection, setCurrentSection] = useState('top');
   const isAutoScrolling = useRef(false);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
-    const handleScroll = () => {
-      if (breakpointRef.current && lastDivRef.current && teamRef.current) {
-        const breakpointRect = breakpointRef.current.getBoundingClientRect();
-        const lastDivRect = lastDivRef.current.getBoundingClientRect();
-        const teamRect = teamRef.current.getBoundingClientRect();
-
-        // If user is in the last div section, do not auto-scroll back
-        const inLastDivSection = lastDivRect.top <= window.innerHeight / 2 && lastDivRect.bottom > window.innerHeight / 2;
-        const inBreakpointSection = breakpointRect.top <= window.innerHeight / 2 && breakpointRect.bottom > window.innerHeight / 2;
-        const inTeamSection = teamRect.top <= window.innerHeight / 2 && teamRect.bottom > window.innerHeight / 2;
-
-        // Down: scroll to last div when passing breakpoint, but not if already in last div section
-        if (breakpointRect.top <= 0 && lastScrollY < window.scrollY && inBreakpointSection) {
-          setScrolledPast(true);
+    const handleWheel = (e) => {
+      if (isAutoScrolling.current) return;
+      if (!breakpointRef.current || !lastDivRef.current || !teamRef.current) return;
+      if (e.deltaY > 0) {
+        if (currentSection === 'top') {
           isAutoScrolling.current = true;
           lastDivRef.current.scrollIntoView({ behavior: "smooth" });
           setTimeout(() => {
+            setCurrentSection('last');
             isAutoScrolling.current = false;
-          }, 700); // Adjust timeout as needed for smooth scroll duration
+          }, 400);
+        } else if (currentSection === 'last') {
+          isAutoScrolling.current = true;
+          teamRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('team');
+            isAutoScrolling.current = false;
+          }, 400);
         }
-        // Up: scroll to top when passing last div upwards, but not if already in last div section
-        else if (lastDivRect.top > 0 && lastScrollY > window.scrollY && inLastDivSection) {
-          setScrolledPast(false);
+      }
+      else if (e.deltaY < 0) {
+        if (currentSection === 'team') {
+          isAutoScrolling.current = true;
+          lastDivRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('last');
+            isAutoScrolling.current = false;
+          }, 400);
+        } else if (currentSection === 'last') {
           isAutoScrolling.current = true;
           window.scrollTo({ top: 0, behavior: "smooth" });
           setTimeout(() => {
+            setCurrentSection('top');
             isAutoScrolling.current = false;
-          }, 700);
+          }, 400);
         }
-        // Down: Scroll to team section when passing it, but only if not auto-scrolling
-        else if (!isAutoScrolling.current && lastDivRect.top <= 0 && lastScrollY < window.scrollY && inLastDivSection) {
-          teamRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-        // Up: Scroll to last div only if not already in team section
-        else if (teamRect.top > 0 && lastScrollY > window.scrollY && inTeamSection) {
-          lastDivRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-        lastScrollY = window.scrollY;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSection]);
 
   return (
     <motion.div
-      animate={{ backgroundColor: scrolledPast ? "#000" : "#fff" }}
+      animate={{ backgroundColor: currentSection !== 'top' ? "#000" : "#fff" }}
       transition={{ duration: 0.5 }}
       className="flex flex-col min-h-screen"
     >
@@ -77,7 +73,7 @@ export default function Home() {
         onMouseLeave={() => {
           document.querySelectorAll('.nav-link').forEach(a => {
             if (a.getAttribute('href') !== "/") {
-              a.style.opacity = scrolledPast ? 0 : 1;
+              a.style.opacity = currentSection !== 'top' ? 0 : 1;
             }
           });
         }}
@@ -87,7 +83,7 @@ export default function Home() {
           className="nav-link"
           href="/about"
           style={{
-            opacity: scrolledPast ? 0 : 1,
+            opacity: currentSection !== 'top' ? 0 : 1,
             transition: "opacity 0.5s",
           }}
         >
@@ -97,7 +93,7 @@ export default function Home() {
           className="nav-link"
           href="/services"
           style={{
-            opacity: scrolledPast ? 0 : 1,
+            opacity: currentSection !== 'top' ? 0 : 1,
             transition: "opacity 0.5s",
           }}
         >
@@ -107,7 +103,7 @@ export default function Home() {
           className="nav-link"
           href="/portfolio"
           style={{
-            opacity: scrolledPast ? 0 : 1,
+            opacity: currentSection !== 'top' ? 0 : 1,
             transition: "opacity 0.5s",
           }}
         >
@@ -117,7 +113,7 @@ export default function Home() {
           className="nav-link"
           href="/contact"
           style={{
-            opacity: scrolledPast ? 0 : 1,
+            opacity: currentSection !== 'top' ? 0 : 1,
             transition: "opacity 0.5s",
           }}
         >
@@ -142,7 +138,7 @@ export default function Home() {
         <motion.span
           className="text-white mix-blend-difference"
           initial={{ fontSize: "130px" }}
-          animate={{ fontSize: scrolledPast ? "167px" : "130px" }}
+          animate={{ fontSize: currentSection !== 'top' ? "167px" : "130px" }}
           transition={{ duration: 0.5 }}
         >
           Developing to your needs.

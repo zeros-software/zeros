@@ -2,6 +2,7 @@
 
 :root {
   --background: #ffffff;
+  overflow-y: hidden;
 }
 
 @theme inline {
