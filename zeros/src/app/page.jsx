@@ -32,83 +32,58 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('currentSection', currentSection);
     }
+    setIndex(sections.findIndex(section => section.id === currentSection));
   }, [currentSection]);
+
+
+
+  const [index, setIndex] = useState(0);
+
+  const sections = [
+    { id: 'top', ref: breakpointRef },
+    { id: 'last', ref: lastDivRef },
+    { id: 'team', ref: teamRef },
+    { id: 'services', ref: servicesRef },
+    { id: 'contact', ref: contactRef },
+  ]
+
+  const handleScroll = (index) => {
+    if (isAutoScrolling.current) {
+      return;
+    }
+
+    sections[index].ref.current.scrollIntoView({ behavior: "smooth" })
+    setIndex(index);
+    isAutoScrolling.current = true;
+    setTimeout(() => {
+      isAutoScrolling.current = false;
+    }, 1200);
+  }
 
   useEffect(() => {
     const handleWheel = (e) => {
-      if (isAutoScrolling.current) return;
-      if (!breakpointRef.current || !lastDivRef.current || !teamRef.current || !servicesRef.current) return;
-      if (e.deltaY > 0) {
-        if (currentSection === 'top') {
-          isAutoScrolling.current = true;
-          lastDivRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('last');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'last') {
-          isAutoScrolling.current = true;
-          teamRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('team');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'team') {
-          isAutoScrolling.current = true;
-          servicesRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('services');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'services') {
-          isAutoScrolling.current = true;
-          contactRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('contact');
-            isAutoScrolling.current = false;
-          }, 400);
-        }
+      e.preventDefault();
+      if (isAutoScrolling.current) {
+        return;
       }
-      else if (e.deltaY < 0) {
-        if (currentSection === 'team') {
-          isAutoScrolling.current = true;
-          lastDivRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('last');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'last') {
-          isAutoScrolling.current = true;
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('top');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'services') {
-          isAutoScrolling.current = true;
-          teamRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('team');
-            isAutoScrolling.current = false;
-          }, 400);
-        } else if (currentSection === 'contact') {
-          isAutoScrolling.current = true;
-          servicesRef.current.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            setCurrentSection('services');
-            isAutoScrolling.current = false;
-          }, 400);
-        }
-      };
+      const nextSection = index + 1;
+      const previousSection = index - 1;
 
+      if (e.deltaY > 0 && nextSection < sections.length) {
+        handleScroll(nextSection);
+        setCurrentSection(sections[nextSection].id);
+      }
+      else if (e.deltaY < 0 && previousSection >= 0) {
+        handleScroll(previousSection);
+        setCurrentSection(sections[previousSection].id);
+      }
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSection]);
+  }, [index, sections.length]);
 
   return (
     <motion.div
