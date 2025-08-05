@@ -3,19 +3,26 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Logo from "../assets/zeros.png";
-import Team from "@/components/Team";
+
+import Services from "@/components/Services";
+import Contact from "@/components/Contact";
+import NavBar from "@/components/NavBar";
+
 
 export default function Home() {
   const breakpointRef = useRef(null);
   const lastDivRef = useRef(null);
   const teamRef = useRef(null);
+  const servicesRef = useRef(null);
+  const contactRef = useRef(null);
   const [currentSection, setCurrentSection] = useState('top');
   const isAutoScrolling = useRef(false);
+  const [navHovered, setNavHovered] = useState(false);
 
   useEffect(() => {
     const handleWheel = (e) => {
       if (isAutoScrolling.current) return;
-      if (!breakpointRef.current || !lastDivRef.current || !teamRef.current) return;
+      if (!breakpointRef.current || !lastDivRef.current || !teamRef.current || !servicesRef.current) return;
       if (e.deltaY > 0) {
         if (currentSection === 'top') {
           isAutoScrolling.current = true;
@@ -29,6 +36,20 @@ export default function Home() {
           teamRef.current.scrollIntoView({ behavior: "smooth" });
           setTimeout(() => {
             setCurrentSection('team');
+            isAutoScrolling.current = false;
+          }, 400);
+        } else if (currentSection === 'team') {
+          isAutoScrolling.current = true;
+          servicesRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('services');
+            isAutoScrolling.current = false;
+          }, 400);
+        } else if (currentSection === 'services') {
+          isAutoScrolling.current = true;
+          contactRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('contact');
             isAutoScrolling.current = false;
           }, 400);
         }
@@ -48,8 +69,23 @@ export default function Home() {
             setCurrentSection('top');
             isAutoScrolling.current = false;
           }, 400);
+        } else if (currentSection === 'services') {
+          isAutoScrolling.current = true;
+          teamRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('team');
+            isAutoScrolling.current = false;
+          }, 400);
+        } else if (currentSection === 'contact') {
+          isAutoScrolling.current = true;
+          servicesRef.current.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            setCurrentSection('services');
+            isAutoScrolling.current = false;
+          }, 400);
         }
-      }
+      };
+
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -65,61 +101,15 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="flex flex-col min-h-screen"
     >
-      <div
-        className="px-6 py-4 sf-pro font-medium text-2xl gap-10 flex items-start fixed z-10 mix-blend-difference text-white"
-        onMouseEnter={() => {
-          document.querySelectorAll('.nav-link').forEach(a => a.style.opacity = 1);
-        }}
-        onMouseLeave={() => {
-          document.querySelectorAll('.nav-link').forEach(a => {
-            if (a.getAttribute('href') !== "/") {
-              a.style.opacity = currentSection !== 'top' ? 0 : 1;
-            }
-          });
-        }}
-      >
-        <a className="nav-link" href="/">Home</a>
-        <a
-          className="nav-link"
-          href="/about"
-          style={{
-            opacity: currentSection !== 'top' ? 0 : 1,
-            transition: "opacity 0.5s",
-          }}
-        >
-          About us
-        </a>
-        <a
-          className="nav-link"
-          href="/services"
-          style={{
-            opacity: currentSection !== 'top' ? 0 : 1,
-            transition: "opacity 0.5s",
-          }}
-        >
-          Services
-        </a>
-        <a
-          className="nav-link"
-          href="/portfolio"
-          style={{
-            opacity: currentSection !== 'top' ? 0 : 1,
-            transition: "opacity 0.5s",
-          }}
-        >
-          Portfolio
-        </a>
-        <a
-          className="nav-link"
-          href="/contact"
-          style={{
-            opacity: currentSection !== 'top' ? 0 : 1,
-            transition: "opacity 0.5s",
-          }}
-        >
-          Contact
-        </a>
-      </div>
+      <NavBar
+        navHovered={navHovered}
+        setNavHovered={setNavHovered}
+        currentSection={currentSection}
+        setCurrentSection={setCurrentSection}
+        teamRef={teamRef}
+        servicesRef={servicesRef}
+        contactRef={contactRef}
+      />
       <div ref={breakpointRef} className="h-screen flex flex-col">
         <div className="flex-grow" />
         <div className="flex flex-col gap-4 p-6 mx-auto">
@@ -133,10 +123,9 @@ export default function Home() {
           />
         </div>
       </div>
-      {/* Add more content below to enable scrolling */}
       <div ref={lastDivRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-4">
         <motion.span
-          className="text-white mix-blend-difference"
+          className="text-white mix-blend-difference mt-8"
           initial={{ fontSize: "130px" }}
           animate={{ fontSize: currentSection !== 'top' ? "167px" : "130px" }}
           transition={{ duration: 0.5 }}
@@ -147,8 +136,16 @@ export default function Home() {
 
         </div>
       </div>
-      <div ref={teamRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-4 bg-red-950">
-        <Team />
+      <div ref={teamRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-4 bg-black text-white text-sf-pro-regular text-6xl justify-center">
+        <span className="w-full text-justify">
+          We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what's in your mind to code and design.
+        </span>
+      </div>
+      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5">
+        <Services />
+      </div>
+      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col">
+        <Contact />
       </div>
 
 

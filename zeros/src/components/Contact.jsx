@@ -1,14 +1,7 @@
-import Menu from "@/components/Menu";
-import Logo from "../../assets/zeros.png";
-import Image from "next/image";
-
-
-
 export default function Contact() {
     return (
-        <div className="flex flex-col bg-black h-screen text-white">
-            <Menu active="Contact" />
-            <div className="px-6 py-4 flex flex-col">
+        <div className="flex flex-col bg-black h-screen text-white relative">
+            <div className="px-6 py-4 pt-16 flex flex-col">
                 <span className="sf-pro-bold text-7xl">Tell us about you</span>
                 <span className="text-4xl mt-4 w-130">Let us know how can we help you achieve your goal.</span>
                 <div className="w-full bg-white h-2 mt-6"></div>
