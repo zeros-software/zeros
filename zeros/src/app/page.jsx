@@ -18,6 +18,21 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState('top');
   const isAutoScrolling = useRef(false);
   const [navHovered, setNavHovered] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('currentSection');
+      if (stored && stored !== currentSection) {
+        setCurrentSection(stored);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('currentSection', currentSection);
+    }
+  }, [currentSection]);
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -141,10 +156,10 @@ export default function Home() {
           We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what's in your mind to code and design.
         </span>
       </div>
-      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5">
+      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5 bg-black">
         <Services contactRef={contactRef} setCurrentSection={setCurrentSection} />
       </div>
-      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-6">
+      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-6 bg-black">
         <Contact />
       </div>
 

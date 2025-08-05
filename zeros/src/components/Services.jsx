@@ -55,7 +55,7 @@ export default function Services({ contactRef, setCurrentSection }) {
     };
 
     return (
-        <div className="flex flex-col bg-black w-full relative h-full">
+        <div className="flex flex-col w-full relative h-full">
             <div className="flex flex-col">
                 <div className="flex flex-row mt-20 gap-84 text-white sf-pro-bold text-7xl">
                     <span>Design</span>
