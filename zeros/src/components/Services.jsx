@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const rotatingPhrases = [
     "what you need",
     "what you want",
-    "what you deserve"
+    "what you wish"
 ];
 
 function RotatingPhrase() {
@@ -18,7 +18,7 @@ function RotatingPhrase() {
         return () => clearInterval(interval);
     }, []);
     return (
-        <span className="absolute right-0 text-2xl mt-4 mr-5 transition-all duration-500" key={index}>
+        <span className="absolute right-0 text-2xl mt-4 transition-all duration-500 bg-black w-43 text-justify after:content-[''] after:inline-block after:w-full " key={index}>
             *{rotatingPhrases[index]}
         </span>
     );
@@ -57,7 +57,7 @@ export default function Services({ contactRef, setCurrentSection }) {
     return (
         <div className="flex flex-col bg-black w-full relative h-full">
             <div className="flex flex-col">
-                <div className="flex flex-row mt-24 gap-84 text-white sf-pro-bold text-7xl">
+                <div className="flex flex-row mt-20 gap-84 text-white sf-pro-bold text-7xl">
                     <span>Design</span>
                     <span>&</span>
                     <span>Develop*</span>
@@ -66,7 +66,7 @@ export default function Services({ contactRef, setCurrentSection }) {
 
                 <div className="w-full bg-white h-2 mt-8"></div>
                 {services.map((service, idx) => (
-                    <div key={service.label} className="flex flex-col mb-4 mt-8 gap-2 text-white sf-pro text-5xl">
+                    <div key={service.label} className="flex flex-col mb-4 mt-6 gap-2 text-white sf-pro text-4xl">
                         <button
                             className="text-left focus:outline-none gap-2 flex items-center"
                             onClick={() => toggleIndex(idx)}
