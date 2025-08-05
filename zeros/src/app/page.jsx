@@ -144,7 +144,7 @@ export default function Home() {
       <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5">
         <Services />
       </div>
-      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col">
+      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-6">
         <Contact />
       </div>
 
