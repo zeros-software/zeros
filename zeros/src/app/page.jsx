@@ -142,7 +142,7 @@ export default function Home() {
         </span>
       </div>
       <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5">
-        <Services />
+        <Services contactRef={contactRef} setCurrentSection={setCurrentSection} />
       </div>
       <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-6">
         <Contact />
