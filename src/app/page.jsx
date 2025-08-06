@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Logo from "../assets/zeros.png";
 
-import Services from "@/components/Services";
-import Contact from "@/components/Contact";
+import Services from "@/sections/Services";
+import Contact from "@/sections/Contact";
 import NavBar from "@/components/NavBar";
 
 
