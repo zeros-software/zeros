@@ -11,7 +11,7 @@ export default function NavBar({
 }) {
     return (
         <div
-            className="px-6 py-4 sf-pro font-medium text-2xl gap-10 flex items-start fixed z-10 mix-blend-difference text-white"
+            className="px-16 py-4 sf-pro font-medium text-2xl gap-10 flex items-start fixed z-10 mix-blend-exclusion text-[#F6F6F7]"
             onMouseEnter={() => setNavHovered(true)}
             onMouseLeave={() => setNavHovered(false)}
         >

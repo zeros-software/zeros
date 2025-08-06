@@ -57,7 +57,7 @@ export default function Home() {
     isAutoScrolling.current = true;
     setTimeout(() => {
       isAutoScrolling.current = false;
-    }, 1200);
+    }, 400);
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <motion.div
-      animate={{ backgroundColor: currentSection !== 'top' ? "#000" : "#fff" }}
+      animate={{ backgroundColor: currentSection !== 'top' ? "#090909" : "#F6F6F7" }}
       transition={{ duration: 0.5 }}
       className="flex flex-col min-h-screen"
     >
@@ -102,39 +102,39 @@ export default function Home() {
       />
       <div ref={breakpointRef} className="h-screen flex flex-col">
         <div className="flex-grow" />
-        <div className="flex flex-col gap-4 p-6 mx-auto">
-          <span className="sf-pro-regular text-4xl w-140">
+        <div className="flex flex-col gap-4 px-16 py-6 mx-auto">
+          <span className="sf-pro-regular text-4xl w-140 text-[#090909]">
             We provide software factory services, tailoring solutions to your needs.
           </span>
           <Image
             src={Logo}
             alt="Logo"
-            className="justify-center items-center flex mix-blend-difference filter brightness-0 invert"
+            className="justify-center items-center flex mix-blend-exclusion"
           />
         </div>
       </div>
-      <div ref={lastDivRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-4">
+      <div ref={lastDivRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center">
         <motion.span
-          className="text-white mix-blend-difference mt-8"
+          className="text-white mix-blend-exclusion mt-8"
           initial={{ fontSize: "130px" }}
-          animate={{ fontSize: currentSection !== 'top' ? "167px" : "130px" }}
+          animate={{ fontSize: currentSection !== 'top' ? "163px" : "130px" }}
           transition={{ duration: 0.5 }}
         >
           Developing to your needs.
         </motion.span>
-        <div className="bg-[#191919] rounded-2xl flex-grow flex w-full m-8">
+        <div className="bg-[#191919] rounded-2xl flex-grow flex w-full my-8">
 
         </div>
       </div>
-      <div ref={teamRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-4 bg-black text-white text-sf-pro-regular text-6xl justify-center">
+      <div ref={teamRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-14 bg-[#090909] text-white text-sf-pro-regular text-6xl justify-center">
         <span className="w-full text-justify">
           We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what's in your mind to code and design.
         </span>
       </div>
-      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-5 bg-black">
+      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-15 bg-[#090909]">
         <Services contactRef={contactRef} setCurrentSection={setCurrentSection} />
       </div>
-      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-6 bg-black">
+      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-16 bg-[#090909]">
         <Contact />
       </div>
 

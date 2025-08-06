@@ -3,38 +3,38 @@ import TypewriterComponent from "typewriter-effect";
 import AccordionItem from "../components/AccordionItem";
 
 function RotatingPhrase() {
-    return (
-        <div className="flex flex-row text-2xl mt-4 gap-1.5">
-            <span>
-                *What you
-            </span>
-            <TypewriterComponent options={{
-                strings: ["need", "want", "wish"],
-                loop: true,
-                autoStart: true,
-                wrapperClassName: "inline-block text-white sf-pro-bold",
-            }}/>
-        </div>
-    );
+  return (
+    <div className="flex flex-row text-2xl mt-4 gap-1.5">
+      <span>
+        *what you
+      </span>
+      <TypewriterComponent options={{
+        strings: ["need", "want", "wish"],
+        loop: true,
+        autoStart: true,
+        wrapperClassName: "inline-block text-white sf-pro-bold",
+      }} />
+    </div>
+  );
 }
 
 const services = [
-    {
-        label: "Mobile",
-        description: "We craft secure, intuitive and beautifully designed mobile apps that bring your ideas to people’s pockets."
-    },
-    {
-        label: "Web",
-        description: "From internal tools to public platforms, we build secure, scalable, and modern web apps tailored to your workflow and brand."
-    },
-    {
-        label: "Branding",
-        description: "We shape brands that speak clearly. Distinctive, aligned, and built to connect."
-    },
-    {
-        label: "Blockchain & Web3",
-        description: "We develop decentralized apps and smart contracts with transparency and security at their core."
-    }
+  {
+    label: "Mobile",
+    description: "We craft secure, intuitive and beautifully designed mobile apps that bring your ideas to people’s pockets."
+  },
+  {
+    label: "Web",
+    description: "From internal tools to public platforms, we build secure, scalable, and modern web apps tailored to your workflow and brand."
+  },
+  {
+    label: "Branding",
+    description: "We shape brands that speak clearly. Distinctive, aligned, and built to connect."
+  },
+  {
+    label: "Blockchain & Web3",
+    description: "We develop decentralized apps and smart contracts with transparency and security at their core."
+  }
 ];
 
 export default function Services({ contactRef, setCurrentSection }) {
