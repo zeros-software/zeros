@@ -37,7 +37,12 @@ const services = [
   }
 ];
 
-export default function Services({ contactRef, setCurrentSection }) {
+type ServicesProps = {
+  contactRef: React.RefObject<HTMLDivElement | null>;
+  setCurrentSection: (section: string) => void;
+};
+
+export default function Services({ contactRef, setCurrentSection }: ServicesProps) {
   return (
     <div className="flex flex-col w-full relative h-full">
       <div className="flex flex-col">
@@ -62,6 +67,7 @@ export default function Services({ contactRef, setCurrentSection }) {
           Let’s build something that lasts. Have an idea, product, or process that needs transforming?
           <span
             onClick={() => {
+              if (!contactRef.current) return;
               contactRef.current.scrollIntoView({ behavior: "smooth" });
               setCurrentSection('contact');
             }}

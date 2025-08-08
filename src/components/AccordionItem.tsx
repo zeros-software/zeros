@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type AccordionItemProps = {
+  label: string;
+  description: string;
+};
+
 export default function AccordionItem({
   label,
   description,
-}) {
+}: AccordionItemProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,9 +28,8 @@ export default function AccordionItem({
         }}
       >
         <span
-          className={`transition-transform duration-200 ${
-            open ? 'rotate-45' : 'rotate-0'
-          }`}
+          className={`transition-transform duration-200 ${open ? 'rotate-45' : 'rotate-0'
+            }`}
         >
           +
         </span>
@@ -39,7 +43,7 @@ export default function AccordionItem({
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
-            transition={{ duration: 0.35}}
+            transition={{ duration: 0.35 }}
             className="overflow-hidden ml-4"
           >
             <p className="text-white text-2xl sf-pro mt-2">{description}</p>

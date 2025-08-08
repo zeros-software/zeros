@@ -1,5 +1,16 @@
 import React from "react";
 
+
+type NavBarProps = {
+    navHovered: boolean;
+    setNavHovered: (hovered: boolean) => void;
+    currentSection: string;
+    setCurrentSection: (section: string) => void;
+    teamRef: React.RefObject<HTMLDivElement | null>;
+    servicesRef: React.RefObject<HTMLDivElement | null>;
+    contactRef: React.RefObject<HTMLDivElement | null>;
+};
+
 export default function NavBar({
     navHovered,
     setNavHovered,
@@ -8,7 +19,7 @@ export default function NavBar({
     teamRef,
     servicesRef,
     contactRef
-}) {
+}: NavBarProps) {
     return (
         <div
             className="px-16 py-4 sf-pro font-medium text-2xl gap-10 flex items-start fixed z-10 mix-blend-exclusion text-[#F6F6F7]"
@@ -39,6 +50,7 @@ export default function NavBar({
                 }}
                 onClick={e => {
                     e.preventDefault();
+                    if (!teamRef.current) return;
                     teamRef.current.scrollIntoView({ behavior: "smooth" });
                     setCurrentSection('team');
                 }}
@@ -54,6 +66,7 @@ export default function NavBar({
                 }}
                 onClick={e => {
                     e.preventDefault();
+                    if (!servicesRef.current) return;
                     servicesRef.current.scrollIntoView({ behavior: "smooth" });
                     setCurrentSection('services');
                 }}
@@ -69,6 +82,7 @@ export default function NavBar({
                 }}
                 onClick={e => {
                     e.preventDefault();
+                    if (!contactRef.current) return;
                     contactRef.current.scrollIntoView({ behavior: "smooth" });
                     setCurrentSection('contact');
                 }}
