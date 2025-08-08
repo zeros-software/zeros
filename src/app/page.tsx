@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Logo from "@/assets/zero.png";
+import Logo from "../assets/zeros.png";
 
 import Services from "../sections/Services";
 import Contact from "../sections/Contact";
