@@ -73,7 +73,7 @@ export default function Services({ contactRef, setCurrentSection }: ServicesProp
             }}
             className="cursor-pointer ml-1"
           >
-            [Let's talk].
+            [Let&apos;s talk].
           </span>
         </span>
       </div>

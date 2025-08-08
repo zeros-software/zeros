@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Logo from "../assets/zeros.png";
@@ -8,15 +9,46 @@ import Services from "../sections/Services";
 import Contact from "../sections/Contact";
 import NavBar from "../components/NavBar";
 
+type Section = {
+  id: string;
+  ref: React.RefObject<HTMLDivElement | null>;
+};
+
 export default function Home() {
+  const [currentSection, setCurrentSection] = useState("top");
+  const [index, setIndex] = useState(0);
+  const [navHovered, setNavHovered] = useState(false);
+
   const breakpointRef = useRef(null);
   const lastDivRef = useRef(null);
   const teamRef = useRef(null);
   const servicesRef = useRef(null);
   const contactRef = useRef(null);
-  const [currentSection, setCurrentSection] = useState("top");
   const isAutoScrolling = useRef(false);
-  const [navHovered, setNavHovered] = useState(false);
+
+  const sections: Section[] = [
+    { id: "top", ref: breakpointRef },
+    { id: "last", ref: lastDivRef },
+    { id: "team", ref: teamRef },
+    { id: "services", ref: servicesRef },
+    { id: "contact", ref: contactRef },
+  ];
+
+  const handleScroll = useCallback(
+    (index: number) => {
+      if (isAutoScrolling.current) {
+        return;
+      }
+      sections[index].ref.current?.scrollIntoView({ behavior: "smooth" });
+      setIndex(index);
+      isAutoScrolling.current = true;
+      setTimeout(() => {
+        isAutoScrolling.current = false;
+      }, 400);
+    },
+    [sections] // Add sections here because you access it inside
+  );
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("currentSection");
@@ -28,7 +60,6 @@ export default function Home() {
         handleScroll(sectionIndex);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -36,32 +67,7 @@ export default function Home() {
       localStorage.setItem("currentSection", currentSection);
     }
     setIndex(sections.findIndex((section) => section.id === currentSection));
-  }, [currentSection]);
-
-  const [index, setIndex] = useState(0);
-
-  const sections: {
-    id: string;
-    ref: React.RefObject<HTMLDivElement | null>;
-  }[] = [
-      { id: "top", ref: breakpointRef },
-      { id: "last", ref: lastDivRef },
-      { id: "team", ref: teamRef },
-      { id: "services", ref: servicesRef },
-      { id: "contact", ref: contactRef },
-    ];
-
-  const handleScroll = (index: number) => {
-    if (isAutoScrolling.current) {
-      return;
-    }
-    sections[index].ref.current?.scrollIntoView({ behavior: "smooth" });
-    setIndex(index);
-    isAutoScrolling.current = true;
-    setTimeout(() => {
-      isAutoScrolling.current = false;
-    }, 400);
-  };
+  }, [sections, currentSection]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -85,7 +91,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [index, sections.length]);
+  }, [index, sections, handleScroll]);
 
   return (
     <motion.div
@@ -141,7 +147,7 @@ export default function Home() {
         <span className="w-full text-justify">
           We are a team of developers and designers, based in Buenos Aires,
           Argentina, who factors software into your businesses and ideas,
-          transforming what's in your mind to code and design.
+          transforming what&apos;s in your mind to code and design.
         </span>
       </div>
       <div
