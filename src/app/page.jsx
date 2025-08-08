@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -8,57 +8,58 @@ import Services from "@/sections/Services";
 import Contact from "@/sections/Contact";
 import NavBar from "@/components/NavBar";
 
-
 export default function Home() {
   const breakpointRef = useRef(null);
   const lastDivRef = useRef(null);
   const teamRef = useRef(null);
   const servicesRef = useRef(null);
   const contactRef = useRef(null);
-  const [currentSection, setCurrentSection] = useState('top');
+  const [currentSection, setCurrentSection] = useState("top");
   const isAutoScrolling = useRef(false);
   const [navHovered, setNavHovered] = useState(false);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('currentSection');
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("currentSection");
       if (stored && stored !== currentSection) {
         setCurrentSection(stored);
+        const sectionIndex = sections.findIndex(
+          (section) => section.id === stored
+        );
+        handleScroll(sectionIndex);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('currentSection', currentSection);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("currentSection", currentSection);
     }
-    setIndex(sections.findIndex(section => section.id === currentSection));
+    setIndex(sections.findIndex((section) => section.id === currentSection));
   }, [currentSection]);
-
-
 
   const [index, setIndex] = useState(0);
 
   const sections = [
-    { id: 'top', ref: breakpointRef },
-    { id: 'last', ref: lastDivRef },
-    { id: 'team', ref: teamRef },
-    { id: 'services', ref: servicesRef },
-    { id: 'contact', ref: contactRef },
-  ]
+    { id: "top", ref: breakpointRef },
+    { id: "last", ref: lastDivRef },
+    { id: "team", ref: teamRef },
+    { id: "services", ref: servicesRef },
+    { id: "contact", ref: contactRef },
+  ];
 
   const handleScroll = (index) => {
     if (isAutoScrolling.current) {
       return;
     }
 
-    sections[index].ref.current.scrollIntoView({ behavior: "smooth" })
+    sections[index].ref.current.scrollIntoView({ behavior: "smooth" });
     setIndex(index);
     isAutoScrolling.current = true;
     setTimeout(() => {
       isAutoScrolling.current = false;
     }, 400);
-  }
+  };
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -72,8 +73,7 @@ export default function Home() {
       if (e.deltaY > 0 && nextSection < sections.length) {
         handleScroll(nextSection);
         setCurrentSection(sections[nextSection].id);
-      }
-      else if (e.deltaY < 0 && previousSection >= 0) {
+      } else if (e.deltaY < 0 && previousSection >= 0) {
         handleScroll(previousSection);
         setCurrentSection(sections[previousSection].id);
       }
@@ -87,7 +87,9 @@ export default function Home() {
 
   return (
     <motion.div
-      animate={{ backgroundColor: currentSection !== 'top' ? "#090909" : "#F6F6F7" }}
+      animate={{
+        backgroundColor: currentSection !== "top" ? "#090909" : "#F6F6F7",
+      }}
       transition={{ duration: 0.5 }}
       className="flex flex-col min-h-screen"
     >
@@ -104,7 +106,8 @@ export default function Home() {
         <div className="flex-grow" />
         <div className="flex flex-col gap-4 px-16 py-6 mx-auto">
           <span className="sf-pro-regular text-4xl w-140 text-[#090909]">
-            We provide software factory services, tailoring solutions to your needs.
+            We provide software factory services, tailoring solutions to your
+            needs.
           </span>
           <Image
             src={Logo}
@@ -113,32 +116,49 @@ export default function Home() {
           />
         </div>
       </div>
-      <div ref={lastDivRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center">
+      <div
+        ref={lastDivRef}
+        style={{ height: "100vh", width: "100%" }}
+        className="flex flex-col items-center"
+      >
         <motion.span
           className="text-white mix-blend-exclusion mt-8"
           initial={{ fontSize: "130px" }}
-          animate={{ fontSize: currentSection !== 'top' ? "163px" : "130px" }}
+          animate={{ fontSize: currentSection !== "top" ? "163px" : "130px" }}
           transition={{ duration: 0.5 }}
         >
           Developing to your needs.
         </motion.span>
-        <div className="bg-[#191919] rounded-2xl flex-grow flex w-full my-8">
-
-        </div>
+        <div className="bg-[#191919] rounded-2xl flex-grow flex w-full my-8"></div>
       </div>
-      <div ref={teamRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col items-center px-14 bg-[#090909] text-white text-sf-pro-regular text-6xl justify-center">
+      <div
+        ref={teamRef}
+        style={{ height: "100vh", width: "100%" }}
+        className="flex flex-col items-center px-14 bg-[#090909] text-white text-sf-pro-regular text-6xl justify-center"
+      >
         <span className="w-full text-justify">
-          We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what's in your mind to code and design.
+          We are a team of developers and designers, based in Buenos Aires,
+          Argentina, who factors software into your businesses and ideas,
+          transforming what's in your mind to code and design.
         </span>
       </div>
-      <div ref={servicesRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-15 bg-[#090909]">
-        <Services contactRef={contactRef} setCurrentSection={setCurrentSection} />
+      <div
+        ref={servicesRef}
+        style={{ height: "100vh", width: "100%" }}
+        className="flex flex-col px-15 bg-[#090909]"
+      >
+        <Services
+          contactRef={contactRef}
+          setCurrentSection={setCurrentSection}
+        />
       </div>
-      <div ref={contactRef} style={{ height: "100vh", width: "100%" }} className="flex flex-col px-16 bg-[#090909]">
+      <div
+        ref={contactRef}
+        style={{ height: "100vh", width: "100%" }}
+        className="flex flex-col px-16 bg-[#090909]"
+      >
         <Contact />
       </div>
-
-
     </motion.div>
   );
 }
