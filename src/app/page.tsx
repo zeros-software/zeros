@@ -42,7 +42,7 @@ export default function Home() {
 
   const sections: {
     id: string;
-    ref: React.RefObject<null> | React.RefObject<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement | null>;
   }[] = [
       { id: "top", ref: breakpointRef },
       { id: "last", ref: lastDivRef },
