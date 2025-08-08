@@ -2,11 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Logo from "../assets/zeros.png";
+import Logo from "@/assets/zero.png";
 
-import Services from "@/sections/Services";
-import Contact from "@/sections/Contact";
-import NavBar from "@/components/NavBar";
+import Services from "../sections/Services";
+import Contact from "../sections/Contact";
+import NavBar from "../components/NavBar";
 
 export default function Home() {
   const breakpointRef = useRef(null);
@@ -40,20 +40,22 @@ export default function Home() {
 
   const [index, setIndex] = useState(0);
 
-  const sections = [
-    { id: "top", ref: breakpointRef },
-    { id: "last", ref: lastDivRef },
-    { id: "team", ref: teamRef },
-    { id: "services", ref: servicesRef },
-    { id: "contact", ref: contactRef },
-  ];
+  const sections: {
+    id: string;
+    ref: React.RefObject<null> | React.RefObject<HTMLDivElement>;
+  }[] = [
+      { id: "top", ref: breakpointRef },
+      { id: "last", ref: lastDivRef },
+      { id: "team", ref: teamRef },
+      { id: "services", ref: servicesRef },
+      { id: "contact", ref: contactRef },
+    ];
 
-  const handleScroll = (index) => {
+  const handleScroll = (index: number) => {
     if (isAutoScrolling.current) {
       return;
     }
-
-    sections[index].ref.current.scrollIntoView({ behavior: "smooth" });
+    sections[index].ref.current?.scrollIntoView({ behavior: "smooth" });
     setIndex(index);
     isAutoScrolling.current = true;
     setTimeout(() => {
@@ -62,7 +64,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const handleWheel = (e) => {
+    const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (isAutoScrolling.current) {
         return;
@@ -111,7 +113,7 @@ export default function Home() {
           </span>
           <Image
             src={Logo}
-            alt="Logo"
+            alt="Zeros Logo"
             className="justify-center items-center flex mix-blend-exclusion"
           />
         </div>
