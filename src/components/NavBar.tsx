@@ -5,21 +5,19 @@ type NavBarProps = {
     navHovered: boolean;
     setNavHovered: (hovered: boolean) => void;
     currentSection: string;
-    setCurrentSection: (section: string) => void;
-    teamRef: React.RefObject<HTMLDivElement | null>;
-    servicesRef: React.RefObject<HTMLDivElement | null>;
-    contactRef: React.RefObject<HTMLDivElement | null>;
+    handleScroll: (index: number) => void
 };
 
 export default function NavBar({
     navHovered,
     setNavHovered,
     currentSection,
-    setCurrentSection,
-    teamRef,
-    servicesRef,
-    contactRef
+    handleScroll
 }: NavBarProps) {
+    const handleClick = (index: number) => (e: React.MouseEvent) => {
+        e.preventDefault();
+        handleScroll(index);
+    }
     return (
         <div
             className="px-16 py-4 sf-pro font-medium text-2xl gap-10 flex items-start fixed z-10 mix-blend-exclusion text-[#F6F6F7]"
@@ -33,11 +31,7 @@ export default function NavBar({
                     transition: "opacity 0.5s",
                     cursor: "pointer"
                 }}
-                onClick={e => {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                    setCurrentSection('top');
-                }}
+                onClick={handleClick(0)}
             >
                 Home
             </div>
@@ -48,12 +42,7 @@ export default function NavBar({
                     transition: "opacity 0.5s",
                     cursor: "pointer"
                 }}
-                onClick={e => {
-                    e.preventDefault();
-                    if (!teamRef.current) return;
-                    teamRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrentSection('team');
-                }}
+                onClick={handleClick(1)}
             >
                 About us
             </div>
@@ -64,12 +53,7 @@ export default function NavBar({
                     transition: "opacity 0.5s",
                     cursor: "pointer"
                 }}
-                onClick={e => {
-                    e.preventDefault();
-                    if (!servicesRef.current) return;
-                    servicesRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrentSection('services');
-                }}
+                onClick={handleClick(2)}
             >
                 Services
             </div>
@@ -80,12 +64,7 @@ export default function NavBar({
                     transition: "opacity 0.5s",
                     cursor: "pointer"
                 }}
-                onClick={e => {
-                    e.preventDefault();
-                    if (!contactRef.current) return;
-                    contactRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrentSection('contact');
-                }}
+                onClick={handleClick(3)}
             >
                 Contact
             </div>

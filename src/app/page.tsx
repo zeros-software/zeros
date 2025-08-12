@@ -7,6 +7,7 @@ import Logo from "../assets/zeros.png";
 import Services from "../sections/Services";
 import Contact from "../sections/Contact";
 import NavBar from "../components/NavBar";
+import WhatWeDoPointer from "../components/WhatWeDoPointer";
 
 type Section = {
   id: string;
@@ -19,7 +20,6 @@ export default function Home() {
   const [navHovered, setNavHovered] = useState(false);
 
   const breakpointRef = useRef(null);
-  const lastDivRef = useRef(null);
   const teamRef = useRef(null);
   const servicesRef = useRef(null);
   const contactRef = useRef(null);
@@ -28,7 +28,6 @@ export default function Home() {
   const sections: Section[] = useMemo(() => {
     return [
       { id: "top", ref: breakpointRef },
-      { id: "last", ref: lastDivRef },
       { id: "team", ref: teamRef },
       { id: "services", ref: servicesRef },
       { id: "contact", ref: contactRef },
@@ -42,6 +41,7 @@ export default function Home() {
       }
       sections[index].ref.current?.scrollIntoView({ behavior: "smooth" });
       setIndex(index);
+      setCurrentSection(sections[index].id);
       isAutoScrolling.current = true;
       setTimeout(() => {
         isAutoScrolling.current = false;
@@ -61,10 +61,8 @@ export default function Home() {
 
       if (e.deltaY > 0 && nextSection < sections.length) {
         handleScroll(nextSection);
-        setCurrentSection(sections[nextSection].id);
       } else if (e.deltaY < 0 && previousSection >= 0) {
         handleScroll(previousSection);
-        setCurrentSection(sections[previousSection].id);
       }
     };
 
@@ -86,10 +84,7 @@ export default function Home() {
         navHovered={navHovered}
         setNavHovered={setNavHovered}
         currentSection={currentSection}
-        setCurrentSection={setCurrentSection}
-        teamRef={teamRef}
-        servicesRef={servicesRef}
-        contactRef={contactRef}
+        handleScroll={handleScroll}
       />
       <div ref={breakpointRef} className="h-screen flex flex-col">
         <div className="flex-grow" />
@@ -106,9 +101,9 @@ export default function Home() {
         </div>
       </div>
       <div
-        ref={lastDivRef}
+        ref={teamRef}
         style={{ height: "100vh", width: "100%" }}
-        className="flex flex-col items-center"
+        className="flex flex-col justify-between pb-10 items-center text-white mix-blend-exclusion mt-8"
       >
         <motion.span
           className="text-white mix-blend-exclusion mt-8"
@@ -118,9 +113,15 @@ export default function Home() {
         >
           Developing to your needs.
         </motion.span>
-        <div className="bg-[#191919] rounded-2xl flex-grow flex w-full my-8"></div>
+
+        <span className="flex flex-col items-center px-14 text-white text-sf-pro-regular text-6xl justify-center w-full text-justify">
+          We are a team of developers and designers, based in Buenos Aires,
+          Argentina, who factors software into your businesses and ideas,
+          transforming what&apos;s in your mind to code and design.
+        </span>
+        <WhatWeDoPointer handleScroll={handleScroll} />
       </div>
-      <div
+      {/*       <div
         ref={teamRef}
         style={{ height: "100vh", width: "100%" }}
         className="flex flex-col items-center px-14 bg-[#090909] text-white text-sf-pro-regular text-6xl justify-center"
@@ -130,15 +131,14 @@ export default function Home() {
           Argentina, who factors software into your businesses and ideas,
           transforming what&apos;s in your mind to code and design.
         </span>
-      </div>
+      </div> */}
       <div
         ref={servicesRef}
         style={{ height: "100vh", width: "100%" }}
         className="flex flex-col px-15 bg-[#090909]"
       >
         <Services
-          contactRef={contactRef}
-          setCurrentSection={setCurrentSection}
+          handleScroll={handleScroll}
         />
       </div>
       <div

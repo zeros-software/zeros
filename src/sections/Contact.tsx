@@ -62,14 +62,13 @@ export default function Contact() {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <label className="block text-lg mb-2">Message</label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     placeholder="Type your message..."
                                     required
-                                    className="w-full border border-gray-300 p-3 rounded text-white cursor-text"
+                                    className="w-full p-3 rounded text-white cursor-text resize-none"
                                 />
                                 {formData.message.trim() && (
                                     <button
@@ -94,18 +93,16 @@ export default function Contact() {
                                 className="space-y-4"
                             >
                                 <div>
-                                    <label className="block text-lg mb-2">Name</label>
                                     <input
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
                                         placeholder="Your name"
                                         required
-                                        className="w-full border border-gray-300 p-3 rounded text-white"
+                                        className="w-full p-3 rounded text-white"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-lg mb-2">Email</label>
                                     <input
                                         name="email"
                                         type="email"
@@ -113,7 +110,7 @@ export default function Contact() {
                                         onChange={handleChange}
                                         placeholder="Your email"
                                         required
-                                        className="w-full border border-gray-300 p-3 rounded text-white"
+                                        className="w-full p-3 rounded text-white"
                                     />
                                 </div>
                                 <button
@@ -135,9 +132,9 @@ export default function Contact() {
                                 transition={{ duration: 0.3 }}
                                 className="mt-6"
                             >
-                                <h2 className="text-3xl font-bold mb-2">Thanks for getting in touch! 🎉</h2>
+                                <h2 className="text-3xl font-bold mb-2">Thanks for getting in touch!</h2>
                                 <p className="text-lg">
-                                    We’ve received your message and will get back to you shortly.
+                                    We&apos;ve received your message and will get back to you shortly.
                                 </p>
                             </motion.div>
                         )}

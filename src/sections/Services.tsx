@@ -38,11 +38,15 @@ const services = [
 ];
 
 type ServicesProps = {
-  contactRef: React.RefObject<HTMLDivElement | null>;
-  setCurrentSection: (section: string) => void;
+  handleScroll: (index: number) => void;
 };
 
-export default function Services({ contactRef, setCurrentSection }: ServicesProps) {
+export default function Services({ handleScroll }: ServicesProps) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleScroll(3);
+  }
+
   return (
     <div className="flex flex-col w-full relative h-full">
       <div className="flex flex-col">
@@ -64,13 +68,9 @@ export default function Services({ contactRef, setCurrentSection }: ServicesProp
         ))}
 
         <span className="text-white text-2xl sf-pro transition-all duration-200 w-full text-center absolute bottom-0 mb-8">
-          Let’s build something that lasts. Have an idea, product, or process that needs transforming?
+          Let&apos;s build something that lasts. Have an idea, product, or process that needs transforming?
           <span
-            onClick={() => {
-              if (!contactRef.current) return;
-              contactRef.current.scrollIntoView({ behavior: "smooth" });
-              setCurrentSection('contact');
-            }}
+            onClick={handleClick}
             className="cursor-pointer ml-1"
           >
             [Let&apos;s talk].
