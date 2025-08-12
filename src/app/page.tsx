@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Logo from "../assets/zeros.png";
@@ -26,13 +25,15 @@ export default function Home() {
   const contactRef = useRef(null);
   const isAutoScrolling = useRef(false);
 
-  const sections: Section[] = [
-    { id: "top", ref: breakpointRef },
-    { id: "last", ref: lastDivRef },
-    { id: "team", ref: teamRef },
-    { id: "services", ref: servicesRef },
-    { id: "contact", ref: contactRef },
-  ];
+  const sections: Section[] = useMemo(() => {
+    return [
+      { id: "top", ref: breakpointRef },
+      { id: "last", ref: lastDivRef },
+      { id: "team", ref: teamRef },
+      { id: "services", ref: servicesRef },
+      { id: "contact", ref: contactRef },
+    ]
+  }, []);
 
   const handleScroll = useCallback(
     (index: number) => {
@@ -46,28 +47,8 @@ export default function Home() {
         isAutoScrolling.current = false;
       }, 400);
     },
-    [sections] // Add sections here because you access it inside
+    [sections]
   );
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("currentSection");
-      if (stored && stored !== currentSection) {
-        setCurrentSection(stored);
-        const sectionIndex = sections.findIndex(
-          (section) => section.id === stored
-        );
-        handleScroll(sectionIndex);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("currentSection", currentSection);
-    }
-    setIndex(sections.findIndex((section) => section.id === currentSection));
-  }, [sections, currentSection]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
