@@ -121,17 +121,6 @@ export default function Home() {
         </span>
         <WhatWeDoPointer handleScroll={handleScroll} />
       </div>
-      {/*       <div
-        ref={teamRef}
-        style={{ height: "100vh", width: "100%" }}
-        className="flex flex-col items-center px-14 bg-[#090909] text-white text-sf-pro-regular text-6xl justify-center"
-      >
-        <span className="w-full text-justify">
-          We are a team of developers and designers, based in Buenos Aires,
-          Argentina, who factors software into your businesses and ideas,
-          transforming what&apos;s in your mind to code and design.
-        </span>
-      </div> */}
       <div
         ref={servicesRef}
         style={{ height: "100vh", width: "100%" }}
