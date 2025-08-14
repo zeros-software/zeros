@@ -120,7 +120,7 @@ export default function Home() {
       </div>
       <div
         ref={servicesRef}
-        className="min-h-screen flex flex-col px-4 sm:px-8 lg:px-16"
+        className="h-screen flex flex-col px-4 sm:px-8 lg:px-16"
       >
         <Services
           handleScroll={handleScroll}
