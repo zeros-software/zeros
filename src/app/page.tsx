@@ -86,45 +86,41 @@ export default function Home() {
         currentSection={currentSection}
         handleScroll={handleScroll}
       />
-      <div ref={breakpointRef} className="h-screen flex flex-col">
+      <div ref={breakpointRef} className="h-screen flex flex-col ">
         <div className="flex-grow" />
-        <div className="flex flex-col gap-4 px-16 py-6 mx-auto">
-          <span className="sf-pro-regular text-4xl w-140 text-[#090909]">
+        <div className="flex flex-col gap-4 2xl:px-16 py-6 mx-auto">
+          <span className="sf-pro-regular text-2xl w-full px-6 text-[#090909] md:text-4xl 2xl:px-0 lg:w-2xl 2xl:w-[650px]">
             We provide software factory services, tailoring solutions to your
             needs.
           </span>
           <Image
             src={Logo}
             alt="Zeros Logo"
-            className="justify-center items-center flex mix-blend-exclusion"
+            className="h-auto w-full mix-blend-exclusion px-6 2xl:px-0"
           />
         </div>
       </div>
       <div
         ref={teamRef}
-        style={{ height: "100vh", width: "100%" }}
-        className="flex flex-col justify-between pb-10 items-center text-white mix-blend-exclusion mt-8"
+        className="min-h-screen w-full flex flex-col justify-between pb-10 2xl:items-center text-white mix-blend-exclusion mt-8 "
       >
-        <motion.span
-          className="text-white mix-blend-exclusion mt-8"
-          initial={{ fontSize: "130px" }}
-          animate={{ fontSize: currentSection !== "top" ? "163px" : "130px" }}
+        <motion.h1
+          className="text-white mix-blend-exclusion mt-20 text-4xl sm:text-5xl 2xl:mt-10 md:text-6xl lg:text-[80px] xl:text-[110px] 2xl:text-[163px] 2xl:text-center leading-tight px-4 sm:px-8 md:px-12"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: currentSection !== "top" ? 1 : 0.8 }}
           transition={{ duration: 0.5 }}
         >
           Developing to your needs.
-        </motion.span>
+        </motion.h1>
 
-        <span className="flex flex-col items-center px-14 text-white text-sf-pro-regular text-6xl justify-center w-full text-justify">
-          We are a team of developers and designers, based in Buenos Aires,
-          Argentina, who factors software into your businesses and ideas,
-          transforming what&apos;s in your mind to code and design.
-        </span>
+        <p className="px-4 sm:px-8 md:px-12 text-white text-sf-pro-regular text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl  text-justify">
+          We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what&apos;s in your mind to code and design.
+        </p>
         <WhatWeDoPointer handleScroll={handleScroll} />
       </div>
       <div
         ref={servicesRef}
-        style={{ height: "100vh", width: "100%" }}
-        className="flex flex-col px-15 bg-[#090909]"
+        className="min-h-screen flex flex-col px-4 sm:px-8 lg:px-16"
       >
         <Services
           handleScroll={handleScroll}
@@ -132,8 +128,7 @@ export default function Home() {
       </div>
       <div
         ref={contactRef}
-        style={{ height: "100vh", width: "100%" }}
-        className="flex flex-col px-16 bg-[#090909]"
+        className="min-h-screen w-full flex flex-col px-4 sm:px-8 lg:px-16"
       >
         <Contact />
       </div>
