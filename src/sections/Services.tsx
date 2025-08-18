@@ -52,7 +52,7 @@ export default function Services({ handleScroll }: ServicesProps) {
   return (
     <div className="flex flex-col w-full relative h-full">
       <div className="flex flex-col">
-        <div className="flex flex-row mt-20 text-white sf-pro-bold text-4xl md:text-5xl md:justify-between xl:text-7xl">
+        <div className="flex gap-4 flex-row mt-20 text-white sf-pro-bold text-4xl md:text-5xl md:justify-between xl:text-7xl">
           <span>Design</span>
           <span>&</span>
           <span>Develop<span className="hidden md:inline">*</span></span>
