@@ -4,19 +4,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 type AccordionItemProps = {
   label: string;
   description: string;
+  // When provided, component becomes controlled
+  open?: boolean;
+  onToggle?: () => void;
 };
 
 export default function AccordionItem({
   label,
   description,
+  open,
+  onToggle,
 }: AccordionItemProps) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  const isOpen = open !== undefined ? open : internalOpen;
+  const handleClick = () => {
+    if (onToggle) return onToggle();
+    setInternalOpen((prev) => !prev);
+  };
 
   return (
-    <div className="flex flex-col mb-4 mt-6 gap-2 text-white sf-pro text-4xl">
+    <div className="flex flex-col mt-6 gap-2 text-white sf-pro text-2xl md:text-3xl xl:text-4xl">
       <button
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
+        onClick={handleClick}
+        aria-expanded={isOpen}
         className="text-left focus:outline-none gap-2 flex items-center"
         style={{
           background: "none",
@@ -28,7 +39,7 @@ export default function AccordionItem({
         }}
       >
         <span
-          className={`transition-transform duration-200 ${open ? 'rotate-45' : 'rotate-0'
+          className={`transition-transform duration-200 ${isOpen ? 'rotate-45' : 'rotate-0'
             }`}
         >
           +
@@ -37,7 +48,7 @@ export default function AccordionItem({
       </button>
 
       <AnimatePresence initial={false}>
-        {open && (
+        {isOpen && (
           <motion.div
             key="content"
             initial={{ height: 0 }}
@@ -46,7 +57,7 @@ export default function AccordionItem({
             transition={{ duration: 0.35 }}
             className="overflow-hidden ml-4"
           >
-            <p className="text-white text-2xl sf-pro mt-2">{description}</p>
+            <p className="text-white text-xl md:text-2xl sf-pro mt-2">{description}</p>
           </motion.div>
         )}
       </AnimatePresence>

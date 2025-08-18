@@ -1,10 +1,10 @@
-
+import { useState } from "react";
 import TypewriterComponent from "typewriter-effect";
 import AccordionItem from "../components/AccordionItem";
 
 function RotatingPhrase() {
   return (
-    <div className="flex flex-row text-2xl mt-4 gap-1.5">
+    <div className="text-2xl mt-4 gap-1.5 hidden md:flex md:flex-row w-45">
       <span>
         *what you
       </span>
@@ -42,6 +42,8 @@ type ServicesProps = {
 };
 
 export default function Services({ handleScroll }: ServicesProps) {
+  // index of the currently open accordion; null means none open
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     handleScroll(3);
@@ -50,24 +52,26 @@ export default function Services({ handleScroll }: ServicesProps) {
   return (
     <div className="flex flex-col w-full relative h-full">
       <div className="flex flex-col">
-        <div className="flex flex-row mt-20 gap-84 text-white sf-pro-bold text-7xl">
+        <div className="flex flex-row mt-20 text-white sf-pro-bold text-4xl md:text-5xl md:justify-between xl:text-7xl">
           <span>Design</span>
           <span>&</span>
-          <span>Develop*</span>
+          <span>Develop<span className="hidden md:inline">*</span></span>
           <RotatingPhrase />
         </div>
 
-        <div className="w-full bg-white h-2 mt-8"></div>
+        <div className="w-full bg-white h-2 mt-4 md:mt-6 xl:mt-8"></div>
 
-        {services.map((service) => (
+        {services.map((service, idx) => (
           <AccordionItem
             key={service.label}
             label={service.label}
             description={service.description}
+            open={openIndex === idx}
+            onToggle={() => setOpenIndex((prev) => (prev === idx ? null : idx))}
           />
         ))}
 
-        <span className="text-white text-2xl sf-pro transition-all duration-200 w-full text-center absolute bottom-0 mb-8">
+        <span className="text-white text-xl md:text-2xl sf-pro transition-all duration-200 w-full text-center absolute bottom-0 mb-8">
           Let&apos;s build something that lasts. Have an idea, product, or process that needs transforming?
           <span
             onClick={handleClick}
