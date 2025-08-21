@@ -106,6 +106,42 @@ export default function Home() {
     };
   }, [index, sections, handleScroll]);
 
+  // IntersectionObserver to keep currentSection/index in sync with what is actually in view (needed for mobile where we allow native scroll)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const matched = sections.find((s) => s.ref.current === entry.target);
+            if (matched) {
+              setCurrentSection(matched.id);
+              const newIndex = sections.indexOf(matched);
+              if (newIndex !== -1 && newIndex !== index) {
+                setIndex(newIndex);
+              }
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sections.forEach((s) => {
+      if (s.ref.current) {
+        // Ensure each observed element has an id attribute (useful for debugging / accessibility)
+        if (!(s.ref.current as HTMLElement).id) {
+          (s.ref.current as HTMLElement).id = s.id;
+        }
+        observer.observe(s.ref.current);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [sections, index]);
+
   return (
     <motion.div
       animate={{
