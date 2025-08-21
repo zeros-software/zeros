@@ -52,14 +52,14 @@ export default function Services({ handleScroll }: ServicesProps) {
   return (
     <div className="flex flex-col w-full relative h-full">
       <div className="flex flex-col">
-        <div className="flex gap-4 flex-row mt-20 text-white sf-pro-bold text-4xl md:text-5xl md:justify-between xl:text-7xl">
+        <div className="flex gap-4 flex-row mt-10 md:mt-20 text-white sf-pro-bold text-4xl md:text-5xl md:justify-between xl:text-6xl 2xl:text-7xl">
           <span>Design</span>
           <span>&</span>
           <span>Develop<span className="hidden md:inline">*</span></span>
           <RotatingPhrase />
         </div>
 
-        <div className="w-full bg-white h-2 mt-4 md:mt-6 xl:mt-8"></div>
+        <div className="w-full bg-white h-2 mt-4 md:mt-6 2xl:mt-8"></div>
 
         {services.map((service, idx) => (
           <AccordionItem
@@ -71,7 +71,7 @@ export default function Services({ handleScroll }: ServicesProps) {
           />
         ))}
 
-        <span className="text-white text-xl md:text-2xl sf-pro transition-all duration-200 w-full text-center absolute bottom-0 mb-8">
+        <span className="text-white text-xl md:text-2xl sf-pro transition-all duration-200 w-full text-center absolute bottom-0 mb-8 hidden 2xl:flex">
           Let&apos;s build something that lasts. Have an idea, product, or process that needs transforming?
           <span
             onClick={handleClick}

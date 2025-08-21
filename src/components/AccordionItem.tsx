@@ -24,7 +24,7 @@ export default function AccordionItem({
   };
 
   return (
-    <div className="flex flex-col mt-6 gap-2 text-white sf-pro text-2xl md:text-3xl xl:text-4xl">
+    <div className="flex flex-col mt-6 xl:mt-5 2xl:mt-6 gap-2 text-white sf-pro text-3xl 2xl:text-4xl">
       <button
         onClick={handleClick}
         aria-expanded={isOpen}
@@ -54,7 +54,7 @@ export default function AccordionItem({
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.15 }}
             className="overflow-hidden ml-4"
           >
             <p className="text-white text-xl md:text-2xl sf-pro mt-2">{description}</p>
@@ -62,7 +62,7 @@ export default function AccordionItem({
         )}
       </AnimatePresence>
 
-      <div className="w-full bg-white h-1 mt-4" />
+      <div className="w-full bg-white h-1 mt-4 xl:mt-2 2xl:mt-4" />
     </div>
   );
 }

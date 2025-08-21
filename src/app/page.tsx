@@ -51,6 +51,14 @@ export default function Home() {
   );
 
   useEffect(() => {
+    // Only attach JS-driven scroll on desktop; allow native scroll on mobile
+    const isDesktop = typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches;
+    if (!isDesktop) {
+      return;
+    }
+    let touchStartY = 0;
+    let touchEndY = 0;
+
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (isAutoScrolling.current) {
@@ -66,9 +74,35 @@ export default function Home() {
       }
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndY = e.changedTouches[0].clientY;
+      if (isAutoScrolling.current) {
+        return;
+      }
+      const deltaY = touchStartY - touchEndY;
+      const nextSection = index + 1;
+      const previousSection = index - 1;
+
+      // Threshold to avoid accidental scrolls
+      if (deltaY > 50 && nextSection < sections.length) {
+        handleScroll(nextSection);
+      } else if (deltaY < -50 && previousSection >= 0) {
+        handleScroll(previousSection);
+      }
+    };
+
+  window.addEventListener("wheel", handleWheel, { passive: false });
+  window.addEventListener("touchstart", handleTouchStart, { passive: false });
+  window.addEventListener("touchend", handleTouchEnd, { passive: false });
+
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, [index, sections, handleScroll]);
 
@@ -86,9 +120,9 @@ export default function Home() {
         currentSection={currentSection}
         handleScroll={handleScroll}
       />
-      <div ref={breakpointRef} className="h-screen flex flex-col ">
-        <div className="flex-grow" />
-        <div className="flex flex-col gap-4 2xl:px-16 py-6 mx-auto">
+  <div ref={breakpointRef} className="h-screen flex flex-col snap-section">
+        <div className="flex-grow hidden md:flex" />
+        <div className="flex flex-col-reverse md:flex-col gap-6 2xl:px-16 md:gap-4 py-6 mx-auto">
           <span className="sf-pro-regular text-2xl w-full px-6 text-[#090909] md:text-4xl 2xl:px-0 lg:w-2xl 2xl:w-[650px]">
             We provide software factory services, tailoring solutions to your
             needs.
@@ -102,10 +136,10 @@ export default function Home() {
       </div>
       <div
         ref={teamRef}
-        className="min-h-screen w-full flex flex-col justify-between pb-10 2xl:items-center text-white mix-blend-exclusion mt-8 "
+        className="min-h-screen w-full flex flex-col justify-between pb-30 md:pb-10 2xl:items-center text-white mix-blend-exclusion mt-8 md:text-center 2xl:text-left snap-section"
       >
         <motion.h1
-          className="text-white mix-blend-exclusion mt-20 text-4xl sm:text-5xl 2xl:mt-10 md:text-6xl lg:text-[80px] xl:text-[110px] 2xl:text-[163px] 2xl:text-center leading-tight px-4 sm:px-8 md:px-12"
+          className="text-white mix-blend-exclusion mt-10 md:mt-20 text-center md:text-justify text-4xl sm:text-5xl 2xl:mt-10 md:text-6xl lg:text-[80px] xl:text-[100px] 2xl:text-[163px] 2xl:text-center leading-tight px-4 sm:px-8 md:px-12"
           initial={{ scale: 0.8 }}
           animate={{ scale: currentSection !== "top" ? 1 : 0.8 }}
           transition={{ duration: 0.5 }}
@@ -113,14 +147,14 @@ export default function Home() {
           Developing to your needs.
         </motion.h1>
 
-        <p className="px-4 sm:px-8 md:px-12 text-white text-sf-pro-regular text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl  text-justify">
+        <p className="px-4 sm:px-8 md:px-12 text-white text-sf-pro-regular text-2xl sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-6xl text-center md:text-justify xl:text-center 2xl:text-justify">
           We are a team of developers and designers, based in Buenos Aires, Argentina, who factors software into your businesses and ideas, transforming what&apos;s in your mind to code and design.
         </p>
         <WhatWeDoPointer handleScroll={handleScroll} />
       </div>
       <div
         ref={servicesRef}
-        className="h-screen flex flex-col px-4 sm:px-8 lg:px-16"
+        className="h-screen flex flex-col px-4 sm:px-8 lg:px-16 snap-section"
       >
         <Services
           handleScroll={handleScroll}
@@ -128,7 +162,7 @@ export default function Home() {
       </div>
       <div
         ref={contactRef}
-        className="min-h-screen w-full flex flex-col px-4 sm:px-8 lg:px-16"
+        className="min-h-screen w-full flex flex-col px-4 sm:px-8 lg:px-16 snap-section"
       >
         <Contact />
       </div>

@@ -2,7 +2,25 @@
 
 :root {
   --background: #ffffff;
-  overflow-y: hidden;
+}
+
+/* Enable scrolling by default; only lock scroll on desktop */
+@media (min-width: 768px) {
+  :root {
+    overflow-y: hidden;
+  }
+}
+
+/* Mobile scroll snapping */
+@media (max-width: 767px) {
+  html, body {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+  }
 }
 
 @theme inline {
