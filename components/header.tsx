@@ -1,0 +1,118 @@
+"use client"
+
+import { Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useEffect, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+
+const navItems = [
+  { href: "#services", label: "Services" },
+  { href: "#work", label: "Work" },
+  { href: "#contact", label: "Contact" },
+]
+
+export function Header() {
+  const [compact, setCompact] = useState(false)
+  const { scrollY } = useScroll()
+  const t = useTransform(scrollY, [0, 64], [0, 1], { clamp: true })
+  const logoScale = useTransform(t, [0, 1], [1, 0.92])
+  const titleScale = useTransform(t, [0, 1], [1, 0.96])
+  const actionsOpacity = useTransform(t, [0, 1], [0, 1])
+
+
+  useEffect(() => {
+    const onScroll = () => {
+      // Toggle compact header once the user scrolls a bit
+      setCompact(window.scrollY > 24)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  return (
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.nav
+          layout
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className={`grid items-center ${compact ? "h-16 md:h-20" : "h-24 md:h-28"} grid-cols-3`}
+        >
+          {/* Brand */}
+          <motion.a
+            href="/"
+            className={`${compact ? "col-start-1 justify-self-start" : "col-start-2 justify-self-center"} group flex items-center gap-3`}
+            aria-label="Zeros home"
+            layout
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.img
+              src="/icon.svg"
+              alt="Zeros logo"
+              className="size-9"
+              style={{ scale: logoScale }}
+            />
+            <motion.span
+              className={`text-2xl md:text-3xl font-semibold tracking-tight`}
+              style={{ scale: titleScale }}
+            >
+              Zeros
+            </motion.span>
+          </motion.a>
+
+          {/* Desktop Navigation */}
+          <motion.div
+            className="col-start-3 justify-self-end flex items-center gap-2"
+            style={{ opacity: actionsOpacity }}
+            transition={{ duration: 0.25 }}
+          >
+            <ul className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <Button size="lg" className="hidden md:inline-flex">Get a quote</Button>
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+                  <Menu className="size-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="p-0">
+                <div className="p-6">
+                  <a href="/" className="group flex items-center gap-3" aria-label="Zeros home">
+                    <img src="/placeholder-logo.svg" alt="Zeros logo" className="size-9" />
+                    <span className="text-xl font-semibold tracking-tight">Zeros</span>
+                  </a>
+                  <div className="mt-6 space-y-4">
+                    {navItems.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="block text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                  <div className="mt-8">
+                    <Button size="lg" className="w-full">Get a quote</Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </motion.div>
+        </motion.nav>
+      </div>
+    </header>
+  )
+}
