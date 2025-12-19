@@ -20,6 +20,7 @@ export function Hero() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
           className="relative w-[60vw] h-[60vw] max-w-[600px] max-h-[600px]"
+          initial={{ opacity: 0 }}
           animate={{
             opacity: [0, 0.03, 0.03, 0],
           }}
