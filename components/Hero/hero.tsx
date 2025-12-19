@@ -16,7 +16,7 @@ export function Hero() {
             Built for scale.
           </h1>
           <p className="mt-8 text-balance text-xl leading-relaxed text-muted-foreground lg:text-2xl mx-auto max-w-3xl">
-            Zeros delivers production-ready software for companies building at scale—web, mobile, and blockchain solutions
+            Zeros delivers production-ready software for companies building at scale. Web, mobile, and blockchain solutions
             that work.
           </p>
         </div>
