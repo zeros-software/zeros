@@ -1,4 +1,4 @@
-import Noise from '@/components/Noise'
+import Noise from '@/components/Noise/Noise'
 
 export function Hero() {
   return (
