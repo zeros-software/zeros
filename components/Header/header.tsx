@@ -63,7 +63,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <motion.div
-            className="col-start-3 justify-self-end flex items-center gap-4"
+            className="col-start-3 justify-self-end flex items-center gap-6"
             style={{ opacity: actionsOpacity }}
             transition={{ duration: 0.25 }}
           >
