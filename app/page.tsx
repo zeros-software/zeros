@@ -11,7 +11,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <ProjectShowcase />
+      {/* <ProjectShowcase /> */}
       <CTA />
       <Footer />
     </main>

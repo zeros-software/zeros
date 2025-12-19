@@ -25,6 +25,7 @@ export function Services() {
   return (
     <section id="services" className="border-t border-border/20">
       <div className="container mx-auto px-6 py-24 lg:px-8 lg:py-32">
+        <h2 className="text-mono text-3xl font-bold tracking-tight mb-16 lg:text-4xl">Our services</h2>
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-24">
           {services.map((service) => (
             <div key={service.number} className="space-y-4">
