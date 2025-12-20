@@ -8,7 +8,6 @@ import { motion, useScroll, useTransform } from "framer-motion"
 
 const navItems = [
   { href: "#services", label: "Services" },
-  { href: "#work", label: "Work" },
   { href: "#contact", label: "Contact" },
 ]
 
