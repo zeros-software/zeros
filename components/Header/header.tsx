@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useTranslations } from "@/components/i18n-provider"
 import { LanguageSelector } from "@/components/LanguageSelector/language-selector"
+import Link from "next/link"
 
 export function Header() {
   const { t, locale } = useTranslations()
@@ -81,7 +82,9 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <Button size="lg" className="hidden md:inline-flex">{t.nav.getQuote}</Button>
+            <Button size="lg" className="hidden md:inline-flex" asChild>
+              <Link href={`/${locale}/quote`}>{t.nav.getQuote}</Link>
+            </Button>
             <LanguageSelector />
             {/* Mobile Menu */}
             <Sheet>
@@ -108,7 +111,9 @@ export function Header() {
                     ))}
                   </div>
                   <div className="mt-8 space-y-4">
-                    <Button size="lg" className="w-full">{t.nav.getQuote}</Button>
+                    <Button size="lg" className="w-full" asChild>
+                      <Link href={`/${locale}/quote`}>{t.nav.getQuote}</Link>
+                    </Button>
                     <div className="flex justify-center">
                       <LanguageSelector />
                     </div>

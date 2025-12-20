@@ -72,4 +72,34 @@ export const en = {
     en: "English",
     es: "Spanish",
   },
+
+  // Quote page
+  quote: {
+    title: "Tell us about your project",
+    subtitle: "Let us know how we can help you achieve your goals.",
+    form: {
+      message: "What would you like to build?",
+      messagePlaceholder: "Describe your project, goals, and any specific requirements...",
+      name: "Your name",
+      namePlaceholder: "John Doe",
+      email: "Your email",
+      emailPlaceholder: "john@company.com",
+      company: "Company (optional)",
+      companyPlaceholder: "Acme Inc.",
+      continue: "Continue",
+      back: "Back",
+      send: "Send message",
+      sending: "Sending...",
+    },
+    success: {
+      title: "Message sent!",
+      description: "Thanks for reaching out. We'll get back to you within 24 hours.",
+      backHome: "Back to home",
+    },
+    error: {
+      title: "Something went wrong",
+      description: "Please try again or email us directly at hello@zeros.com.ar",
+      retry: "Try again",
+    },
+  },
 } as const

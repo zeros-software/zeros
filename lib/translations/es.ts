@@ -72,4 +72,34 @@ export const es = {
     en: "Ingles",
     es: "Espanol",
   },
+
+  // Quote page
+  quote: {
+    title: "Contanos sobre tu proyecto",
+    subtitle: "Dejanos saber como podemos ayudarte a alcanzar tus objetivos.",
+    form: {
+      message: "Que te gustaria construir?",
+      messagePlaceholder: "Describe tu proyecto, objetivos y cualquier requerimiento especifico...",
+      name: "Tu nombre",
+      namePlaceholder: "Juan Perez",
+      email: "Tu email",
+      emailPlaceholder: "juan@empresa.com",
+      company: "Empresa (opcional)",
+      companyPlaceholder: "Acme S.A.",
+      continue: "Continuar",
+      back: "Volver",
+      send: "Enviar mensaje",
+      sending: "Enviando...",
+    },
+    success: {
+      title: "Mensaje enviado!",
+      description: "Gracias por contactarnos. Te responderemos dentro de las 24 horas.",
+      backHome: "Volver al inicio",
+    },
+    error: {
+      title: "Algo salio mal",
+      description: "Por favor intenta de nuevo o escribinos directamente a hello@zeros.com.ar",
+      retry: "Intentar de nuevo",
+    },
+  },
 } as const;
