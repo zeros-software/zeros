@@ -86,7 +86,7 @@ export default function QuotePage() {
                 <p className="text-lg text-muted-foreground mb-8">
                   {t.quote.success.description}
                 </p>
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="cursor-pointer">
                   <Link href={`/${locale}`}>{t.quote.success.backHome}</Link>
                 </Button>
               </motion.div>
@@ -110,6 +110,7 @@ export default function QuotePage() {
                 <Button
                   size="lg"
                   onClick={() => setStatus("idle")}
+                  className="cursor-pointer"
                 >
                   {t.quote.error.retry}
                 </Button>
@@ -170,7 +171,7 @@ export default function QuotePage() {
                             size="lg"
                             onClick={() => setStep(2)}
                             disabled={!canContinue}
-                            className="gap-2"
+                            className="gap-2 cursor-pointer"
                           >
                             {t.quote.form.continue}
                             <ArrowRight className="size-4" />
@@ -236,7 +237,7 @@ export default function QuotePage() {
                             variant="ghost"
                             size="lg"
                             onClick={() => setStep(1)}
-                            className="gap-2"
+                            className="gap-2 cursor-pointer"
                           >
                             <ArrowLeft className="size-4" />
                             {t.quote.form.back}
@@ -245,6 +246,7 @@ export default function QuotePage() {
                             type="submit"
                             size="lg"
                             disabled={!canSubmit || status === "sending"}
+                            className="cursor-pointer"
                           >
                             {status === "sending"
                               ? t.quote.form.sending
