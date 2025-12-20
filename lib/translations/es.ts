@@ -23,7 +23,7 @@ export const es = {
       "Somos un equipo de desarrolladores y disenadores, con base en Buenos Aires,",
     argentina: "Argentina",
     descriptionEnd:
-      ", que transforma software en tus negocios e ideas, convirtiendo lo que esta en tu mente en codigo y diseno.",
+      ", que transforma en software tus negocios e ideas, convirtiendo lo que esta en tu mente en codigo y diseño.",
   },
 
   // Services
@@ -34,7 +34,7 @@ export const es = {
         number: "01",
         title: "Desarrollo Web",
         description:
-          "Aplicaciones full-stack con React, Next.js, Node.js y bases de datos modernas.",
+          "Aplicaciones full-stack con stacks de desarrollo modernos.",
       },
       {
         number: "02",
@@ -45,8 +45,7 @@ export const es = {
       {
         number: "03",
         title: "Blockchain",
-        description:
-          "Contratos inteligentes, protocolos DeFi y aplicaciones descentralizadas.",
+        description: "Contratos inteligentes y aplicaciones descentralizadas.",
       },
       {
         number: "04",
@@ -79,7 +78,8 @@ export const es = {
     subtitle: "Dejanos saber como podemos ayudarte a alcanzar tus objetivos.",
     form: {
       message: "Que te gustaria construir?",
-      messagePlaceholder: "Describe tu proyecto, objetivos y cualquier requerimiento especifico...",
+      messagePlaceholder:
+        "Describe tu proyecto, objetivos y cualquier requerimiento especifico...",
       name: "Tu nombre",
       namePlaceholder: "Juan Perez",
       email: "Tu email",
@@ -93,12 +93,14 @@ export const es = {
     },
     success: {
       title: "Mensaje enviado!",
-      description: "Gracias por contactarnos. Te responderemos dentro de las 24 horas.",
+      description:
+        "Gracias por contactarnos. Te responderemos dentro de las 24 horas.",
       backHome: "Volver al inicio",
     },
     error: {
       title: "Algo salio mal",
-      description: "Por favor intenta de nuevo o escribinos directamente a hello@zeros.com.ar",
+      description:
+        "Por favor intenta de nuevo o escribinos directamente a hello@zeros.com.ar",
       retry: "Intentar de nuevo",
     },
   },

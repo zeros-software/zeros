@@ -45,8 +45,7 @@ export const en = {
       {
         number: "03",
         title: "Blockchain",
-        description:
-          "Smart contracts, DeFi protocols, and decentralized applications.",
+        description: "Smart contracts, and decentralized applications.",
       },
       {
         number: "04",
@@ -79,7 +78,8 @@ export const en = {
     subtitle: "Let us know how we can help you achieve your goals.",
     form: {
       message: "What would you like to build?",
-      messagePlaceholder: "Describe your project, goals, and any specific requirements...",
+      messagePlaceholder:
+        "Describe your project, goals, and any specific requirements...",
       name: "Your name",
       namePlaceholder: "John Doe",
       email: "Your email",
@@ -93,13 +93,15 @@ export const en = {
     },
     success: {
       title: "Message sent!",
-      description: "Thanks for reaching out. We'll get back to you within 24 hours.",
+      description:
+        "Thanks for reaching out. We'll get back to you within 24 hours.",
       backHome: "Back to home",
     },
     error: {
       title: "Something went wrong",
-      description: "Please try again or email us directly at hello@zeros.com.ar",
+      description:
+        "Please try again or email us directly at hello@zeros.com.ar",
       retry: "Try again",
     },
   },
-} as const
+} as const;

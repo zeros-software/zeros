@@ -51,7 +51,7 @@ export function Hero() {
 
       <div className="h-screen w-full px-6 lg:px-8 flex items-center">
         <div className="mx-auto max-w-5xl text-center relative z-10">
-          <h1 className="font-heading text-balance text-6xl font-bold tracking-tight leading-[1.1] sm:text-7xl lg:text-8xl">
+          <h1 className="font-heading text-balance text-4xl font-bold tracking-tight leading-[1.1] sm:text-6xl md:text-7xl lg:text-8xl">
             {t.hero.builtFor}{" "}
             <span className="inline-block relative">
               <AnimatePresence mode="wait">
