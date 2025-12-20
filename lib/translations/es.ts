@@ -49,8 +49,8 @@ export const es = {
       },
       {
         number: "04",
-        title: "Marca & Diseno",
-        description: "Identidad visual, diseno UI/UX y sistemas de diseno.",
+        title: "Marca & Diseño",
+        description: "Identidad visual, diseño UI/UX y sistemas de diseño.",
       },
     ],
   },
