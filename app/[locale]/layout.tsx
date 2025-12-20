@@ -2,7 +2,14 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Unbounded } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import { I18nProvider } from "@/components/i18n-provider"
+import {
+  type Locale,
+  locales,
+  isValidLocale,
+  defaultLocale,
+} from "@/lib/translations"
+import "../globals.css"
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -33,15 +40,26 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
+
+interface LocaleLayoutProps {
   children: React.ReactNode
-}>) {
+  params: Promise<{ locale: string }>
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
+  const { locale: localeParam } = await params
+  const locale: Locale = isValidLocale(localeParam) ? localeParam : defaultLocale
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${unbounded.variable} font-sans antialiased`}>
-        {children}
+        <I18nProvider locale={locale}>{children}</I18nProvider>
         <Analytics />
       </body>
     </html>

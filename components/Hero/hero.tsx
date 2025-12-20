@@ -5,10 +5,11 @@ import { Logo } from '@/components/Logo/Logo'
 import { LogoNoise } from '@/components/Logo/LogoNoise'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-
-const words = ["Scale", "Growth", "Speed", "You"]
+import { useTranslations } from '@/components/i18n-provider'
 
 export function Hero() {
+  const { t } = useTranslations()
+  const words = t.hero.words
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export function Hero() {
       setCurrentIndex((prev) => prev + 1)
     }, 2500)
     return () => clearTimeout(timeout)
-  }, [currentIndex])
+  }, [currentIndex, words.length])
   return (
     <div className="relative w-full overflow-hidden">
       <Noise
@@ -51,7 +52,7 @@ export function Hero() {
       <div className="h-screen w-full px-6 lg:px-8 flex items-center">
         <div className="mx-auto max-w-5xl text-center relative z-10">
           <h1 className="font-heading text-balance text-6xl font-bold tracking-tight leading-[1.1] sm:text-7xl lg:text-8xl">
-            Built for{" "}
+            {t.hero.builtFor}{" "}
             <span className="inline-block relative">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -69,8 +70,7 @@ export function Hero() {
             .
           </h1>
           <p className="mt-8 text-balance text-xl leading-relaxed text-muted-foreground lg:text-2xl mx-auto max-w-3xl">
-            Zeros delivers production-ready software for companies building at scale. Web, mobile, and blockchain solutions
-            that work.
+            {t.hero.description}
           </p>
         </div>
       </div>

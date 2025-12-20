@@ -5,19 +5,22 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-
-const navItems = [
-  { href: "#services", label: "Services" },
-  { href: "#contact", label: "Contact" },
-]
+import { useTranslations } from "@/components/i18n-provider"
+import { LanguageSelector } from "@/components/LanguageSelector/language-selector"
 
 export function Header() {
+  const { t, locale } = useTranslations()
+
+  const navItems = [
+    { href: "#services", label: t.nav.services },
+    { href: "#contact", label: t.nav.contact },
+  ]
   const [compact, setCompact] = useState(false)
   const { scrollY } = useScroll()
-  const t = useTransform(scrollY, [0, 64], [0, 1], { clamp: true })
-  const logoScale = useTransform(t, [0, 1], [1, 0.92])
-  const titleScale = useTransform(t, [0, 1], [1, 0.96])
-  const actionsOpacity = useTransform(t, [0, 1], [0, 1])
+  const scrollProgress = useTransform(scrollY, [0, 64], [0, 1], { clamp: true })
+  const logoScale = useTransform(scrollProgress, [0, 1], [1, 0.92])
+  const titleScale = useTransform(scrollProgress, [0, 1], [1, 0.96])
+  const actionsOpacity = useTransform(scrollProgress, [0, 1], [0, 1])
 
 
   useEffect(() => {
@@ -40,9 +43,9 @@ export function Header() {
         >
           {/* Brand */}
           <motion.a
-            href="/"
+            href={`/${locale}`}
             className={`${compact ? "col-start-1 justify-self-start" : "col-start-2 justify-self-center"} group flex items-center gap-3`}
-            aria-label="Zeros home"
+            aria-label={t.nav.home}
             layout
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -78,18 +81,19 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <Button size="lg" className="hidden md:inline-flex">Get a quote</Button>
+            <Button size="lg" className="hidden md:inline-flex">{t.nav.getQuote}</Button>
+            <LanguageSelector />
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+                <Button variant="ghost" size="icon" className="md:hidden" aria-label={t.nav.openMenu}>
                   <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="p-0">
                 <div className="p-6">
-                  <a href="/" className="group flex items-center gap-3" aria-label="Zeros home">
-                    <img src="/placeholder-logo.svg" alt="Zeros logo" className="size-9" />
+                  <a href={`/${locale}`} className="group flex items-center gap-3" aria-label={t.nav.home}>
+                    <img src="/icon.svg" alt="Zeros logo" className="size-9" />
                     <span className="text-xl font-semibold tracking-tight">Zeros</span>
                   </a>
                   <div className="mt-6 space-y-4">
@@ -103,8 +107,11 @@ export function Header() {
                       </a>
                     ))}
                   </div>
-                  <div className="mt-8">
-                    <Button size="lg" className="w-full">Get a quote</Button>
+                  <div className="mt-8 space-y-4">
+                    <Button size="lg" className="w-full">{t.nav.getQuote}</Button>
+                    <div className="flex justify-center">
+                      <LanguageSelector />
+                    </div>
                   </div>
                 </div>
               </SheetContent>
