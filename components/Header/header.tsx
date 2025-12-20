@@ -2,7 +2,7 @@
 
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useTranslations } from "@/components/i18n-provider"
@@ -94,6 +94,7 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="p-0">
+                <SheetTitle className="sr-only">{t.nav.openMenu}</SheetTitle>
                 <div className="p-6">
                   <a href={`/${locale}`} className="group flex items-center gap-3" aria-label={t.nav.home}>
                     <img src="/icon.svg" alt="Zeros logo" className="size-9" />

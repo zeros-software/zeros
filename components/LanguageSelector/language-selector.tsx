@@ -26,7 +26,7 @@ export function LanguageSelector() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button variant="ghost" size="sm" className="gap-2 cursor-pointer">
           <Globe className="size-4" />
           <span className="uppercase">{locale}</span>
         </Button>
