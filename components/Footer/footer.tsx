@@ -14,13 +14,7 @@ export function Footer() {
           </div>
           <div className="flex gap-8">
             <a
-              href="https://twitter.com"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/zeros-software"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               LinkedIn
