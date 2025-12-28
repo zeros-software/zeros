@@ -69,7 +69,7 @@ export function Hero() {
             </span>
             .
           </h1>
-          <p className="mt-8 text-balance text-xl leading-relaxed text-muted-foreground lg:text-2xl mx-auto max-w-3xl">
+          <p className="mt-12 text-xl leading-relaxed text-muted-foreground lg:text-2xl mx-auto max-w-4xl">
             {t.hero.description}
           </p>
         </div>
