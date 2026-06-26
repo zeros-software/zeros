@@ -1,78 +1,108 @@
 export const en = {
-  // Header
   nav: {
     services: "Services",
+    work: "Experience",
     contact: "Contact",
-    getQuote: "Get a quote",
+    getQuote: "Let's talk",
     openMenu: "Open menu",
-    home: "Zeros home",
+    home: "Zeros, home",
   },
 
-  // Hero
   hero: {
-    builtFor: "Built for",
-    words: ["Scale", "Growth", "Speed", "You"],
+    badge: "Software Factory · Buenos Aires",
+    line1: "We build software",
+    rotatingWords: ["designed", "thought through", "ready"],
+    line3: "to scale.",
     description:
-      "Zeros delivers production-ready software for companies building at scale. Web, mobile, and blockchain solutions that work.",
+      "We are a team of developers and designers that turns ideas into product. Production-grade web, mobile, and blockchain — with excellence standards.",
+    cta: "Start a project",
+    secondary: "See our work",
   },
 
-  // About
-  about: {
-    title: "Who are we",
+  experience: {
+    label: "Experience",
+    title: "Companies that trusted us to build.",
     description:
-      "We are a team of developers and designers, based in Buenos Aires,",
-    argentina: "Argentina",
-    descriptionEnd:
-      ", who factors software into your businesses and ideas, transforming what's in your mind to code and design.",
-  },
-
-  // Services
-  services: {
-    title: "Our services",
-    items: [
+      "We work shoulder to shoulder with founders and teams across very different industries. These are some of the products we helped bring to life.",
+    viewProject: "View project",
+    projects: [
       {
-        number: "01",
-        title: "Web Development",
+        client: "Santo Restaurants",
+        year: "2026",
+        sector: "Hospitality · AI",
+        title: "Complete digital ecosystem for a luxury restaurant group",
         description:
-          "Full-stack applications with React, Next.js, Node.js, and modern databases.",
+          "AI-powered operating system, multi-location booking platform, digital payroll with biometric e-signing, and a voice-controlled personal assistant for the founder. All integrated into an ecosystem running Santo's daily operations across CDMX and Los Angeles.",
+        tags: ["AI OS", "Web App", "Digital Payroll", "Voice AI"],
+        href: "https://santorestaurants.com",
       },
       {
-        number: "02",
-        title: "Mobile Development",
+        client: "MedStock",
+        year: "2026",
+        sector: "HealthTech",
+        title: "Smart medication management for geriatric facilities",
         description:
-          "Native iOS and Android apps, plus cross-platform solutions with React Native.",
+          "Platform that optimizes medication administration, tracks stock in real time, and keeps families informed. Designed alongside nursing and geriatric professionals.",
+        tags: ["Web App", "Real-time", "Notifications", "AI"],
+        href: "https://medstock.com.ar",
       },
       {
-        number: "03",
-        title: "Blockchain",
-        description: "Smart contracts, and decentralized applications.",
-      },
-      {
-        number: "04",
-        title: "Brand & Design",
-        description: "Visual identity, UI/UX design, and design systems.",
+        client: "Guardians of the Ball",
+        year: "2025",
+        sector: "SportTech · Web3",
+        title: "A football metaverse on blockchain",
+        description:
+          "Hyper-realistic platform connecting fans, clubs, and brands. Digital stadiums, live events, and a loyalty program Guardians ID.",
+        tags: ["Blockchain", "NFTs", "Metaverse"],
+        href: "https://guardiansoftheball.com",
       },
     ],
   },
 
-  // CTA
-  cta: {
-    title: "Let's talk about your project",
+  services: {
+    label: "What we do",
+    title: "A single factory for your entire product cycle.",
+    description:
+      "From concept to deploy. We accompany every stage with a small, senior, and committed team.",
+    items: [
+      {
+        id: "01",
+        title: "Web Development",
+        description: "",
+      },
+      {
+        id: "02",
+        title: "Mobile Development",
+        description: "",
+      },
+      {
+        id: "03",
+        title: "Blockchain",
+        description: "",
+      },
+      {
+        id: "04",
+        title: "Brand & Design",
+        description: "",
+      },
+    ],
   },
 
-  // Footer
   footer: {
-    copyright: "Zeros — Buenos Aires, Argentina",
+    label: "Contact",
+    title: "Let's talk about your next project.",
+    description:
+      "Tell us what you have in mind. We'll get back to you with a clear, no-nonsense proposal.",
+    copyright: "Buenos Aires, Argentina",
+    navLabel: "Footer navigation",
   },
 
-  // Language selector
   language: {
     label: "Language",
     en: "English",
     es: "Spanish",
   },
 
-  // Quote page
   quote: {
     title: "Tell us about your project",
     subtitle: "Let us know how we can help you achieve your goals.",
@@ -104,4 +134,4 @@ export const en = {
       retry: "Try again",
     },
   },
-} as const;
+} as const

@@ -1,6 +1,6 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Unbounded } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { I18nProvider } from "@/components/i18n-provider"
 import {
@@ -11,15 +11,26 @@ import {
 } from "@/lib/translations"
 import "../globals.css"
 
-const unbounded = Unbounded({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-heading",
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700"],
+  subsets: ["latin"],
 })
 
 export const metadata: Metadata = {
-  title: "Zeros - Software Factory in Buenos Aires",
+  title: "Zeros — Software Factory en Buenos Aires",
   description:
-    "Zeros is a software factory based in Buenos Aires, Argentina. We provide web development, mobile development, branding, and blockchain solutions.",
+    "Zeros disena y construye software de nivel produccion: web, mobile y blockchain. Trabajamos con MedStock, Guardians of the Ball, Santo Restaurants y mas.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -40,6 +51,11 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#0a0b0d" }],
+}
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
@@ -57,8 +73,11 @@ export default async function LocaleLayout({
   const locale: Locale = isValidLocale(localeParam) ? localeParam : defaultLocale
 
   return (
-    <html lang={locale}>
-      <body className={`${unbounded.variable} font-sans antialiased`}>
+    <html
+      lang={locale}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} bg-background`}
+    >
+      <body className="font-sans antialiased">
         <I18nProvider locale={locale}>{children}</I18nProvider>
         <Analytics />
       </body>

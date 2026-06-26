@@ -1,37 +1,62 @@
 "use client"
 
+import { ZerosLogo } from "@/components/zeros-logo"
 import { useTranslations } from "@/components/i18n-provider"
 
 export function Footer() {
   const { t } = useTranslations()
 
+  const footerLinks: { label: string; href: string }[] = []
+
   return (
-    <footer className="border-t border-border/20">
-      <div className="container mx-auto px-6 py-12 lg:px-8">
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {t.footer.copyright}
-          </div>
-          <div className="flex gap-8">
-            <a
-              href="https://twitter.com"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://linkedin.com"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/zeros-software"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              GitHub
-            </a>
-          </div>
+    <footer id="contacto" className="bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+          {t.footer.label}
+        </p>
+        <h2 className="mt-6 max-w-4xl text-balance font-heading text-5xl leading-[1.02] tracking-tight md:text-7xl">
+          {t.footer.title}
+        </h2>
+        <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+          {t.footer.description}
+        </p>
+
+        <a
+          href="mailto:hello@zeros.com.ar"
+          className="group mt-10 inline-flex items-center gap-3 font-heading text-2xl tracking-tight text-foreground transition-colors hover:text-accent md:text-3xl"
+        >
+          hello@zeros.com.ar
+          <span
+            aria-hidden="true"
+            className="transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </a>
+      </div>
+
+      <div className="border-t border-border">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-6 py-10 md:flex-row md:items-center">
+          <ZerosLogo />
+
+          <nav aria-label={t.footer.navLabel}>
+            <ul className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <p className="font-mono text-xs text-muted-foreground">
+            {t.footer.copyright} · © {new Date().getFullYear()} Zeros
+          </p>
         </div>
       </div>
     </footer>

@@ -1,19 +1,22 @@
+import { QuoteModalProvider } from "@/components/quote-modal-context"
+import { QuoteModal } from "@/components/QuoteModal/quote-modal"
+import { Header } from "@/components/Header/header"
 import { Hero } from "@/components/Hero/hero"
 import { Services } from "@/components/Services/services"
-import { CTA } from "@/components/cta/cta"
-import { Header } from "@/components/Header/header"
+import { Experience } from "@/components/Experience/experience"
 import { Footer } from "@/components/Footer/footer"
-import { About } from "@/components/About/about"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <Hero />
-      <About />
-      <Services />
-      <CTA />
-      <Footer />
-    </main>
+    <QuoteModalProvider>
+      <main className="min-h-screen bg-background text-foreground">
+        <Header />
+        <Hero />
+        <Services />
+        <Experience />
+        <Footer />
+      </main>
+      <QuoteModal />
+    </QuoteModalProvider>
   )
 }
