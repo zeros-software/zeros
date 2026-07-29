@@ -60,6 +60,7 @@ export function Services() {
               </div>
             )
           })}
+          <div aria-hidden="true" className="hidden bg-card sm:block" />
         </div>
       </div>
     </section>

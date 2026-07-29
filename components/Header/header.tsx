@@ -19,7 +19,6 @@ export function Header() {
     { label: t.nav.services, href: `/${locale}#servicios` },
     { label: t.nav.automation, href: `/${locale}/automation` },
     { label: t.nav.work, href: `/${locale}#experiencia` },
-    { label: t.nav.contact, href: `/${locale}#contacto` },
   ]
 
   useEffect(() => {
