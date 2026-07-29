@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { Header } from "@/components/Header/header"
 import { Footer } from "@/components/Footer/footer"
+import { QuoteModal } from "@/components/QuoteModal/quote-modal"
+import { QuoteModalProvider } from "@/components/quote-modal-context"
 import { useTranslations } from "@/components/i18n-provider"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -10,56 +12,62 @@ import { MessageCircle, Bot, Clock, TrendingUp, Utensils, Building2, ShoppingBag
 
 export default function AutomationPage() {
   const { t, locale } = useTranslations()
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "")
+  const contactHref = whatsappNumber
+    ? `https://wa.me/${whatsappNumber}`
+    : `mailto:hello@zeros.com.ar?subject=${encodeURIComponent("Automatización con IA")}`
+  const hasWhatsApp = Boolean(whatsappNumber)
 
   const features = [
     {
       icon: Bot,
-      title: t.automation?.features?.ai?.title || "Inteligencia Artificial",
-      description: t.automation?.features?.ai?.description || "Chatbot inteligente que entiende y responde como un humano, 24/7.",
+      title: t.automation.features.ai.title,
+      description: t.automation.features.ai.description,
     },
     {
       icon: Clock,
-      title: t.automation?.features?.availability?.title || "Disponibilidad Total",
-      description: t.automation?.features?.availability?.description || "Atención automática las 24 horas, los 7 días de la semana.",
+      title: t.automation.features.availability.title,
+      description: t.automation.features.availability.description,
     },
     {
       icon: TrendingUp,
-      title: t.automation?.features?.sales?.title || "Aumenta tus Ventas",
-      description: t.automation?.features?.sales?.description || "Convierte consultas en ventas de forma automática.",
+      title: t.automation.features.sales.title,
+      description: t.automation.features.sales.description,
     },
     {
       icon: MessageCircle,
-      title: t.automation?.features?.whatsapp?.title || "WhatsApp Integrado",
-      description: t.automation?.features?.whatsapp?.description || "Conecta directamente con tus clientes donde ya están.",
+      title: t.automation.features.whatsapp.title,
+      description: t.automation.features.whatsapp.description,
     },
   ]
 
   const industries = [
     {
       icon: Utensils,
-      title: t.automation?.industries?.restaurants?.title || "Restaurantes",
-      description: t.automation?.industries?.restaurants?.description || "Toma de pedidos, reservas y consultas automáticas.",
+      title: t.automation.industries.restaurants.title,
+      description: t.automation.industries.restaurants.description,
     },
     {
       icon: Building2,
-      title: t.automation?.industries?.realestate?.title || "Inmobiliarias",
-      description: t.automation?.industries?.realestate?.description || "Agenda visitas y responde consultas de propiedades.",
+      title: t.automation.industries.realestate.title,
+      description: t.automation.industries.realestate.description,
     },
     {
       icon: ShoppingBag,
-      title: t.automation?.industries?.retail?.title || "Comercios",
-      description: t.automation?.industries?.retail?.description || "Catálogo de productos, precios y disponibilidad al instante.",
+      title: t.automation.industries.retail.title,
+      description: t.automation.industries.retail.description,
     },
     {
       icon: Briefcase,
-      title: t.automation?.industries?.services?.title || "Servicios",
-      description: t.automation?.industries?.services?.description || "Agenda citas, responde FAQs y califica leads.",
+      title: t.automation.industries.services.title,
+      description: t.automation.industries.services.description,
     },
   ]
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <QuoteModalProvider>
+      <main className="min-h-screen bg-background">
+        <Header />
       
       {/* Hero Section */}
       <div className="relative w-full overflow-hidden">
@@ -83,7 +91,7 @@ export default function AutomationPage() {
             >
               <MessageCircle className="size-4 text-green-500" />
               <span className="text-sm font-medium text-green-500">
-                {t.automation?.badge || "Automatización con IA"}
+                {t.automation.badge}
               </span>
             </motion.div>
             
@@ -93,9 +101,9 @@ export default function AutomationPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="font-heading text-balance text-4xl font-bold tracking-tight leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl"
             >
-              {t.automation?.title || "Tu negocio atendiendo"}{" "}
-              <span className="text-green-500">{t.automation?.titleHighlight || "24/7"}</span>{" "}
-              {t.automation?.titleEnd || "por WhatsApp"}
+              {t.automation.title}{" "}
+              <span className="text-green-500">{t.automation.titleHighlight}</span>{" "}
+              {t.automation.titleEnd}
             </motion.h1>
             
             <motion.p
@@ -104,7 +112,7 @@ export default function AutomationPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-8 text-xl leading-relaxed text-muted-foreground lg:text-2xl mx-auto max-w-4xl"
             >
-              {t.automation?.description || "Automatiza la atención al cliente de tu restaurante o empresa con inteligencia artificial. Responde consultas, toma pedidos y cierra ventas mientras duermes."}
+              {t.automation.description}
             </motion.p>
             
             <motion.div
@@ -114,14 +122,18 @@ export default function AutomationPage() {
               className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white" asChild>
-                <a href="https://wa.me/5491123456789" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={contactHref}
+                  target={hasWhatsApp ? "_blank" : undefined}
+                  rel={hasWhatsApp ? "noopener noreferrer" : undefined}
+                >
                   <MessageCircle className="size-5 mr-2" />
-                  {t.automation?.cta?.whatsapp || "Escribinos por WhatsApp"}
+                  {hasWhatsApp ? t.automation.cta.whatsapp : t.automation.cta.email}
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href={`/${locale}/quote`}>
-                  {t.automation?.cta?.quote || "Pedir presupuesto"}
+                <Link href={`/${locale}#contacto`}>
+                  {t.automation.cta.quote}
                 </Link>
               </Button>
             </motion.div>
@@ -139,10 +151,10 @@ export default function AutomationPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold tracking-tight mb-4 lg:text-4xl">
-              {t.automation?.featuresTitle || "¿Por qué automatizar con IA?"}
+              {t.automation.featuresTitle}
             </h2>
             <p className="text-xl text-muted-foreground mb-16 max-w-3xl">
-              {t.automation?.featuresSubtitle || "Transforma la forma en que tu negocio atiende a sus clientes."}
+              {t.automation.featuresSubtitle}
             </p>
           </motion.div>
           
@@ -177,10 +189,10 @@ export default function AutomationPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold tracking-tight mb-4 lg:text-4xl">
-              {t.automation?.industriesTitle || "Para todo tipo de negocio"}
+              {t.automation.industriesTitle}
             </h2>
             <p className="text-xl text-muted-foreground mb-16 max-w-3xl">
-              {t.automation?.industriesSubtitle || "Adaptamos la automatización a las necesidades específicas de tu industria."}
+              {t.automation.industriesSubtitle}
             </p>
           </motion.div>
           
@@ -217,10 +229,10 @@ export default function AutomationPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold tracking-tight mb-4 lg:text-4xl">
-              {t.automation?.howItWorksTitle || "¿Cómo funciona?"}
+              {t.automation.howItWorksTitle}
             </h2>
             <p className="text-xl text-muted-foreground mb-16 max-w-3xl">
-              {t.automation?.howItWorksSubtitle || "Implementamos tu asistente virtual en 3 simples pasos."}
+              {t.automation.howItWorksSubtitle}
             </p>
           </motion.div>
           
@@ -228,18 +240,18 @@ export default function AutomationPage() {
             {[
               {
                 step: "01",
-                title: t.automation?.steps?.analyze?.title || "Analizamos tu negocio",
-                description: t.automation?.steps?.analyze?.description || "Entendemos tus procesos, preguntas frecuentes y flujos de venta.",
+                title: t.automation.steps.analyze.title,
+                description: t.automation.steps.analyze.description,
               },
               {
                 step: "02",
-                title: t.automation?.steps?.configure?.title || "Configuramos la IA",
-                description: t.automation?.steps?.configure?.description || "Entrenamos el asistente con tu información y lo conectamos a WhatsApp.",
+                title: t.automation.steps.configure.title,
+                description: t.automation.steps.configure.description,
               },
               {
                 step: "03",
-                title: t.automation?.steps?.launch?.title || "Lanzamos y optimizamos",
-                description: t.automation?.steps?.launch?.description || "Activamos el bot y mejoramos continuamente basándonos en datos reales.",
+                title: t.automation.steps.launch.title,
+                description: t.automation.steps.launch.description,
               },
             ].map((item, index) => (
               <motion.div
@@ -270,34 +282,40 @@ export default function AutomationPage() {
             className="text-center max-w-3xl mx-auto"
           >
             <h2 className="text-4xl font-bold tracking-tight mb-6 lg:text-5xl">
-              {t.automation?.pricingTitle || "Empezá a automatizar hoy"}
+              {t.automation.pricingTitle}
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              {t.automation?.pricingDescription || "Planes desde $49.000/mes. Incluye configuración, entrenamiento y soporte continuo."}
+              {t.automation.pricingDescription}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white" asChild>
-                <a href="https://wa.me/5491123456789" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={contactHref}
+                  target={hasWhatsApp ? "_blank" : undefined}
+                  rel={hasWhatsApp ? "noopener noreferrer" : undefined}
+                >
                   <MessageCircle className="size-5 mr-2" />
-                  {t.automation?.finalCta?.whatsapp || "Consultar por WhatsApp"}
+                  {hasWhatsApp ? t.automation.finalCta.whatsapp : t.automation.cta.email}
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <a href="mailto:hello@zeros.com.ar">
-                  {t.automation?.finalCta?.email || "Enviar un email"}
+                  {t.automation.finalCta.email}
                 </a>
               </Button>
             </div>
             
             <p className="mt-8 text-sm text-muted-foreground">
-              {t.automation?.pricing?.note || "Sin contratos a largo plazo. Cancelá cuando quieras."}
+              {t.automation.pricing.note}
             </p>
           </motion.div>
         </div>
       </section>
 
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+      <QuoteModal />
+    </QuoteModalProvider>
   )
 }

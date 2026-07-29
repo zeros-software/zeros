@@ -4,9 +4,14 @@ import { ZerosLogo } from "@/components/zeros-logo"
 import { useTranslations } from "@/components/i18n-provider"
 
 export function Footer() {
-  const { t } = useTranslations()
+  const { t, locale } = useTranslations()
 
-  const footerLinks: { label: string; href: string }[] = []
+  const footerLinks = [
+    { label: t.nav.services, href: `/${locale}#servicios` },
+    { label: t.nav.automation, href: `/${locale}/automation` },
+    { label: t.nav.work, href: `/${locale}#experiencia` },
+    { label: t.nav.contact, href: `/${locale}#contacto` },
+  ]
 
   return (
     <footer id="contacto" className="bg-background">

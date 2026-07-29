@@ -9,6 +9,12 @@ import {
   isValidLocale,
   defaultLocale,
 } from "@/lib/translations"
+import {
+  SITE_URL,
+  getLanguageAlternates,
+  getLocaleSeo,
+  getLocaleUrl,
+} from "@/lib/site-config"
 import "../globals.css"
 
 const geistSans = Geist({
@@ -27,33 +33,81 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 })
 
-export const metadata: Metadata = {
-  title: "Zeros — Software Factory en Buenos Aires",
-  description:
-    "Zeros disena y construye software de nivel produccion: web, mobile y blockchain. Trabajamos con MedStock, Guardians of the Ball, Santo Restaurants y mas.",
-  generator: "v0.app",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
+const siteName = "Zeros"
+
+export async function generateMetadata({
+  params,
+}: LocaleLayoutProps): Promise<Metadata> {
+  const { locale: localeParam } = await params
+  const locale: Locale = isValidLocale(localeParam) ? localeParam : defaultLocale
+  const seo = getLocaleSeo(locale)
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: seo.title,
+      template: `%s | ${siteName}`,
+    },
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: {
+      canonical: getLocaleUrl(locale),
+      languages: getLanguageAlternates(),
+    },
+    openGraph: {
+      type: "website",
+      url: getLocaleUrl(locale),
+      siteName: siteName,
+      locale: seo.ogLocale,
+      title: seo.title,
+      description: seo.description,
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Zeros — software factory en Buenos Aires",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: [`${SITE_URL}/opengraph-image`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        {
+          url: "/icon-light-32x32.png",
+          sizes: "32x32",
+          media: "(prefers-color-scheme: light)",
+        },
+        {
+          url: "/icon-dark-32x32.png",
+          sizes: "32x32",
+          media: "(prefers-color-scheme: dark)",
+        },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: "/apple-icon.png",
+    },
+  }
 }
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   colorScheme: "dark",
-  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#0a0b0d" }],
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0b0d" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f7f5" },
+  ],
 }
 
 export function generateStaticParams() {

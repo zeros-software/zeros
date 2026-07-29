@@ -1,6 +1,7 @@
 export const es = {
   nav: {
     services: "Servicios",
+    automation: "IA & WhatsApp",
     work: "Experiencia",
     contact: "Contacto",
     getQuote: "Hablemos",
@@ -10,13 +11,27 @@ export const es = {
 
   hero: {
     badge: "Software Factory · Buenos Aires",
-    line1: "Construimos software",
-    rotatingWords: ["pensado", "diseñado", "listo"],
+    line1: "Software a medida",
+    rotatingWords: ["web", "mobile", "con IA"],
     line3: "para escalar.",
     description:
-      "Somos un equipo de desarrolladores y diseñadores que transforma ideas en producto. Web, mobile y blockchain de nivel producción, con estándares de excelencia.",
+      "Somos una software factory en Buenos Aires: diseñamos y desarrollamos productos web, mobile y con IA para founders y equipos que necesitan avanzar rápido, con criterio y sin capas innecesarias.",
     cta: "Iniciar un proyecto",
     secondary: "Ver nuestro trabajo",
+  },
+
+  about: {
+    title: "Quiénes somos",
+    description: "Somos un equipo de desarrolladores y diseñadores con base en",
+    argentina: "Buenos Aires, Argentina",
+    descriptionEnd:
+      ", que convierte negocios e ideas en productos digitales claros y útiles.",
+    stats: {
+      projects: "Productos lanzados",
+      years: "Años construyendo",
+      clients: "Clientes y partners",
+      team: "Equipo senior",
+    },
   },
 
   experience: {
@@ -63,28 +78,55 @@ export const es = {
     label: "Qué hacemos",
     title: "Una sola fábrica para todo el ciclo de tu producto.",
     description:
-      "Del concepto al deploy. Acompañamos cada etapa con un equipo chico, senior y comprometido.",
+      "Del concepto al deploy. Un equipo senior para diseñar, desarrollar y mejorar productos digitales sin fricción.",
     items: [
       {
         id: "01",
         title: "Desarrollo Web",
-        description: "",
+        description:
+          "Web apps, plataformas y sitios de alto rendimiento pensados para crecer.",
       },
       {
         id: "02",
         title: "Desarrollo Mobile",
-        description: "",
+        description:
+          "Apps iOS y Android que convierten una idea en una experiencia útil y consistente.",
       },
       {
         id: "03",
         title: "Blockchain",
-        description: "",
+        description:
+          "Productos con blockchain cuando la tecnología resuelve un problema real.",
       },
       {
         id: "04",
         title: "Marca & Diseño",
-        description: "",
+        description:
+          "Identidad, UX y UI para que el producto sea claro antes de ser complejo.",
       },
+      {
+        id: "05",
+        title: "Automatización con IA",
+        description:
+          "Asistentes de IA conectados a WhatsApp para responder, vender y operar 24/7.",
+        slug: "/automation",
+      },
+    ],
+  },
+
+  approach: {
+    label: "Cómo trabajamos",
+    title: "Pensamiento de producto, ejecución de ingeniería.",
+    para1:
+      "Nos involucramos temprano para entender el problema antes de elegir la tecnología.",
+    para2:
+      "Trabajamos con ciclos cortos, comunicación directa y decisiones que se pueden sostener cuando el producto crece.",
+    expertise: ["Producto", "Diseño", "Web", "Mobile", "IA"],
+    portfolioLink: "Ver portfolio del equipo",
+    stats: [
+      { value: "Senior", label: "Equipo involucrado" },
+      { value: "1:1", label: "Comunicación directa" },
+      { value: "End-to-end", label: "Del concepto al deploy" },
     ],
   },
 
@@ -95,6 +137,95 @@ export const es = {
       "Contanos qué tenés en mente. Te respondemos con una propuesta clara y sin vueltas.",
     copyright: "Buenos Aires, Argentina",
     navLabel: "Pie de página",
+  },
+
+  automation: {
+    badge: "Automatización con IA",
+    title: "Tu negocio atendiendo",
+    titleHighlight: "24/7",
+    titleEnd: "por WhatsApp",
+    description:
+      "Automatizá la atención al cliente de tu restaurante, comercio o empresa con un asistente de IA. Respondé consultas, tomá pedidos y convertí oportunidades mientras tu equipo se enfoca en lo importante.",
+    featuresTitle: "Una mejor respuesta para cada consulta",
+    featuresSubtitle:
+      "Convertí WhatsApp en un canal de atención y ventas que trabaja todos los días.",
+    features: {
+      ai: {
+        title: "IA entrenada para tu negocio",
+        description:
+          "Responde con tu tono, tus productos y tus reglas, sin respuestas genéricas.",
+      },
+      availability: {
+        title: "Atención 24/7",
+        description:
+          "Tu negocio sigue atendiendo cuando el equipo está ocupado o fuera de horario.",
+      },
+      sales: {
+        title: "Más oportunidades",
+        description:
+          "Califica consultas, recomienda opciones y deriva cada conversación al lugar correcto.",
+      },
+      whatsapp: {
+        title: "WhatsApp integrado",
+        description:
+          "Tus clientes no cambian de canal: reciben respuestas donde ya están conversando.",
+      },
+    },
+    industriesTitle: "Para negocios que viven de responder bien",
+    industriesSubtitle:
+      "Adaptamos los flujos a tu operación, tus horarios y las preguntas que más se repiten.",
+    industries: {
+      restaurants: {
+        title: "Restaurantes",
+        description: "Reservas, pedidos, menú y consultas sin esperas.",
+      },
+      realestate: {
+        title: "Inmobiliarias",
+        description: "Calificá leads, respondé sobre propiedades y agendá visitas.",
+      },
+      retail: {
+        title: "Comercios",
+        description: "Catálogo, precios y disponibilidad al instante.",
+      },
+      services: {
+        title: "Servicios profesionales",
+        description: "Agendá citas, respondé preguntas y ordená tus leads.",
+      },
+    },
+    howItWorksTitle: "Cómo funciona",
+    howItWorksSubtitle: "Un lanzamiento simple, medible y conectado a tu operación.",
+    steps: {
+      analyze: {
+        title: "Analizamos tu negocio",
+        description:
+          "Entendemos tus procesos, preguntas frecuentes y oportunidades de venta.",
+      },
+      configure: {
+        title: "Configuramos la IA",
+        description:
+          "Entrenamos el asistente con tu información y lo conectamos a WhatsApp.",
+      },
+      launch: {
+        title: "Lanzamos y optimizamos",
+        description:
+          "Medimos conversaciones reales y mejoramos el flujo de forma continua.",
+      },
+    },
+    pricingTitle: "Empezá a automatizar hoy",
+    pricingDescription:
+      "Diseñamos una solución a medida según tu volumen de consultas, canales y objetivos.",
+    cta: {
+      whatsapp: "Escribinos por WhatsApp",
+      email: "Consultanos por email",
+      quote: "Pedir presupuesto",
+    },
+    finalCta: {
+      whatsapp: "Consultar por WhatsApp",
+      email: "Enviar un email",
+    },
+    pricing: {
+      note: "Sin contratos a largo plazo. Cancelá cuando quieras.",
+    },
   },
 
   language: {

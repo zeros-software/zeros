@@ -18,6 +18,8 @@ export function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname === "/opengraph-image" ||
+    pathname === "/twitter-image" ||
     pathname.includes(".") // Static files like .svg, .png, etc.
   ) {
     return NextResponse.next()
@@ -45,6 +47,6 @@ export function proxy(request: NextRequest) {
   return NextResponse.redirect(url)
 }
 
-export const config = {
+export const proxyConfig = {
   matcher: ["/((?!_next|api|.*\\..*).*)"],
 }

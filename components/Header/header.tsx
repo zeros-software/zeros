@@ -11,14 +11,15 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { useQuoteModal } from "@/components/quote-modal-context"
 
 export function Header() {
-  const { t } = useTranslations()
+  const { t, locale } = useTranslations()
   const [scrolled, setScrolled] = useState(false)
   const { setOpen } = useQuoteModal()
 
   const links = [
-    { label: t.nav.services, href: "#servicios" },
-    { label: t.nav.work, href: "#experiencia" },
-    { label: t.nav.contact, href: "#contacto" },
+    { label: t.nav.services, href: `/${locale}#servicios` },
+    { label: t.nav.automation, href: `/${locale}/automation` },
+    { label: t.nav.work, href: `/${locale}#experiencia` },
+    { label: t.nav.contact, href: `/${locale}#contacto` },
   ]
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export function Header() {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="#top" aria-label={t.nav.home}>
+        <a href={`/${locale}#top`} aria-label={t.nav.home}>
           <ZerosLogo />
         </a>
 

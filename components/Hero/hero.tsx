@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useTranslations } from "@/components/i18n-provider"
 import { useQuoteModal } from "@/components/quote-modal-context"
 
-function useTypewriter(words: string[], typingSpeed = 80, deleteSpeed = 40, pauseTime = 1800) {
+function useTypewriter(words: readonly string[], typingSpeed = 80, deleteSpeed = 40, pauseTime = 1800) {
   const [displayed, setDisplayed] = useState("")
   const [wordIndex, setWordIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)

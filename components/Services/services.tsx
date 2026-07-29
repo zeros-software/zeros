@@ -3,7 +3,7 @@
 import { useTranslations } from "@/components/i18n-provider"
 
 export function Services() {
-  const { t } = useTranslations()
+  const { t, locale } = useTranslations()
 
   return (
     <section id="servicios" className="border-b border-border">
@@ -23,24 +23,43 @@ export function Services() {
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
-          {t.services.items.map((service) => (
-            <div
-              key={service.id}
-              className="group flex flex-col bg-card p-8 transition-colors hover:bg-secondary md:p-10"
-            >
-              <span className="font-mono text-sm text-muted-foreground">
-                {service.id}
-              </span>
-              <h3 className="mt-6 font-heading text-2xl tracking-tight md:text-3xl">
-                {service.title}
-              </h3>
-              {service.description && (
-                <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
-                  {service.description}
-                </p>
-              )}
-            </div>
-          ))}
+          {t.services.items.map((service) => {
+            const serviceContent = (
+              <>
+                <span className="font-mono text-sm text-muted-foreground">
+                  {service.id}
+                </span>
+                <h3 className="mt-6 font-heading text-2xl tracking-tight md:text-3xl">
+                  {service.title}
+                </h3>
+                {service.description && (
+                  <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
+                )}
+              </>
+            )
+            const serviceClassName =
+              "group flex flex-col bg-card p-8 transition-colors hover:bg-secondary md:p-10"
+
+            if ("slug" in service && service.slug) {
+              return (
+                <a
+                  key={service.id}
+                  href={`/${locale}${service.slug}`}
+                  className={serviceClassName}
+                >
+                  {serviceContent}
+                </a>
+              )
+            }
+
+            return (
+              <div key={service.id} className={serviceClassName}>
+                {serviceContent}
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
