@@ -272,7 +272,7 @@ export default function AutomationPage() {
       </section>
 
       {/* Pricing/CTA Section */}
-      <section className="border-t border-border/20 bg-gradient-to-b from-green-500/5 to-transparent">
+      <section className="border-t border-border/20">
         <div className="container mx-auto px-6 py-24 lg:px-8 lg:py-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
