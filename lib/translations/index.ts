@@ -2,10 +2,19 @@ import { en } from "./en"
 import { es } from "./es"
 
 export type Locale = "en" | "es"
-export type Translations = typeof en
+
+type Widen<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly Widen<U>[]
+    : T extends object
+      ? { -readonly [K in keyof T]: Widen<T[K]> }
+      : T
+
+export type Translations = Widen<typeof en>
 
 export const locales: Locale[] = ["en", "es"]
-export const defaultLocale: Locale = "en"
+export const defaultLocale: Locale = "es"
 
 export const translations: Record<Locale, Translations> = {
   en,

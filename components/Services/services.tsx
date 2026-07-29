@@ -3,20 +3,63 @@
 import { useTranslations } from "@/components/i18n-provider"
 
 export function Services() {
-  const { t } = useTranslations()
+  const { t, locale } = useTranslations()
 
   return (
-    <section id="services" className="border-t border-border/20">
-      <div className="container mx-auto px-6 py-24 lg:px-8 lg:py-32">
-        <h2 className="text-mono text-3xl font-bold tracking-tight mb-16 lg:text-4xl">{t.services.title}</h2>
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:gap-24">
-          {t.services.items.map((service) => (
-            <div key={service.number} className="space-y-4">
-              <div className="text-sm font-mono text-muted-foreground">{service.number}</div>
-              <h3 className="text-2xl font-semibold tracking-tight">{service.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-            </div>
-          ))}
+    <section id="servicios" className="border-b border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+              {t.services.label}
+            </p>
+            <h2 className="mt-4 max-w-2xl text-balance font-heading text-4xl leading-tight tracking-tight md:text-5xl">
+              {t.services.title}
+            </h2>
+          </div>
+          <p className="max-w-sm text-pretty text-muted-foreground">
+            {t.services.description}
+          </p>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
+          {t.services.items.map((service) => {
+            const serviceContent = (
+              <>
+                <span className="font-mono text-sm text-muted-foreground">
+                  {service.id}
+                </span>
+                <h3 className="mt-6 font-heading text-2xl tracking-tight md:text-3xl">
+                  {service.title}
+                </h3>
+                {service.description && (
+                  <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
+                )}
+              </>
+            )
+            const serviceClassName =
+              "group flex flex-col bg-card p-8 transition-colors hover:bg-secondary md:p-10"
+
+            if ("slug" in service && service.slug) {
+              return (
+                <a
+                  key={service.id}
+                  href={`/${locale}${service.slug}`}
+                  className={serviceClassName}
+                >
+                  {serviceContent}
+                </a>
+              )
+            }
+
+            return (
+              <div key={service.id} className={serviceClassName}>
+                {serviceContent}
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
