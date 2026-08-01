@@ -81,10 +81,7 @@ export async function generateMetadata({
       follow: true,
     },
     icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
-        { url: "/icon.svg", type: "image/svg+xml" },
-      ],
+      icon: [{ url: "/favicon.ico", sizes: "any", type: "image/x-icon" }],
     },
   }
 }
