@@ -73,16 +73,18 @@ export function Hero() {
           {t.hero.badge}
         </div>
 
-        <h1 className="mt-8 max-w-4xl text-balance font-heading text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-          {t.hero.line1}{" "}
-          <span className="relative inline-flex items-baseline">
-            <span className="italic text-muted-foreground">
-              {typedWord}
+        <h1 className="mt-8 max-w-6xl min-h-[3.8em] text-balance font-heading text-5xl leading-[0.95] tracking-tight sm:min-h-[2.85em] sm:text-6xl md:min-h-[2.85em] md:text-7xl lg:min-h-[2.85em] lg:text-8xl xl:min-h-[1.9em]">
+          <span className="sm:block">{t.hero.line1}</span>{" "}
+          <span className="sm:block">
+            <span className="relative inline-flex items-baseline">
+              <span className="italic text-muted-foreground">
+                {typedWord}
+              </span>
+              <span className="ml-0.5 inline-block w-[0.06em] h-[0.7em] bg-accent animate-pulse" />
             </span>
-            <span className="ml-0.5 inline-block w-[0.06em] h-[0.7em] bg-accent animate-pulse" />
+            {" "}
+            {t.hero.line3}
           </span>
-          {" "}
-          {t.hero.line3}
         </h1>
 
         <p className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
