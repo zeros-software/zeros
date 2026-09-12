@@ -8,6 +8,8 @@ import { useQuoteModal } from "@/components/quote-modal-context"
 
 type FormStatus = "idle" | "sending" | "success" | "error"
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export function QuoteModal() {
   const { t } = useTranslations()
   const { open, setOpen } = useQuoteModal()
@@ -64,7 +66,9 @@ export function QuoteModal() {
   }
 
   const canContinue = formData.message.trim().length > 0
-  const canSubmit = formData.name.trim() && formData.email.trim()
+  const canSubmit = Boolean(
+    formData.name.trim() && emailPattern.test(formData.email.trim())
+  )
 
   return (
     <AnimatePresence>
@@ -239,6 +243,7 @@ export function QuoteModal() {
                               onChange={handleChange}
                               placeholder={t.quote.form.emailPlaceholder}
                               required
+                              pattern={emailPattern.source}
                               className="w-full bg-transparent border border-border rounded-xl p-3 text-base focus:outline-none focus:border-foreground/40 transition-colors placeholder:text-muted-foreground"
                             />
                           </div>

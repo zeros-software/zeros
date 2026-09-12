@@ -2,13 +2,38 @@ import { Resend } from "resend"
 import { QuoteEmail } from "@/components/emails/quote-email"
 import { NextRequest } from "next/server"
 
+function isValidEmail(email: string) {
+  if (email.length > 254 || email.includes("..")) return false
+
+  const [localPart, domain, ...extraParts] = email.split("@")
+
+  return (
+    extraParts.length === 0 &&
+    Boolean(localPart) &&
+    localPart.length <= 64 &&
+    /^[^\s@]+$/.test(localPart) &&
+    /^[^\s@]+\.[^\s@]+$/.test(domain ?? "")
+  )
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, company, message } = await request.json()
+    const body = await request.json()
+    const name = typeof body.name === "string" ? body.name.trim() : ""
+    const email = typeof body.email === "string" ? body.email.trim() : ""
+    const company = typeof body.company === "string" ? body.company.trim() : ""
+    const message = typeof body.message === "string" ? body.message.trim() : ""
 
     if (!name || !email || !message) {
       return Response.json(
         { error: "Name, email, and message are required" },
+        { status: 400 }
+      )
+    }
+
+    if (!isValidEmail(email)) {
+      return Response.json(
+        { error: "Please provide a valid email address" },
         { status: 400 }
       )
     }
